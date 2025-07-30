@@ -4,12 +4,7 @@ import { Register } from '../Register/Register';
 
 export const Main: React.FC = () => {
   return (
-    <BrowserRouter
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}
-    >
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
