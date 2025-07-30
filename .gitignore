@@ -1,0 +1,17 @@
+/node_modules/
+/fixtures/
+/build
+/public
+
+todo.todo
+package-lock.json
+
+github_notetaker.sql
+
+.env
+.env.dev
+.env.prod
+.DS_Store
+
+*.zip
+
