@@ -64,7 +64,7 @@ export const Register: React.FC = () => {
             </div>
             <div className="form-row">
               <button type="submit" className="button" disabled={isSubmitting}>
-                Submit
+                Register
               </button>
             </div>
           </Form>
