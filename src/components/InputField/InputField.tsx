@@ -1,13 +1,6 @@
 import React, { InputHTMLAttributes } from 'react';
 import { Field, ErrorMessage } from 'formik';
-import { IFormValues } from '../../shared/Interfaces';
-
-interface InputFieldProps {
-  placeholder: string;
-  name: string;
-  fieldErrors: any;
-  touched: any;
-}
+import { InputFieldProps } from '../../shared/Interfaces';
 
 export const InputField: React.FC<InputFieldProps> = ({ name, placeholder, fieldErrors, touched }) => {
   const inputFieldName: string = name;
