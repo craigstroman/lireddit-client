@@ -10,4 +10,5 @@ export interface InputFieldProps {
     [key: string]: string;
   };
   touched: any;
+  type?: string;
 }
