@@ -42,7 +42,13 @@ export const Register: React.FC = () => {
               </div>
 
               <div className="form-row">
-                <InputField name="password" placeholder="Enter a password" touched fieldErrors={errors} />
+                <InputField
+                  name="password"
+                  placeholder="Enter a password"
+                  touched
+                  fieldErrors={errors}
+                  type="password"
+                />
               </div>
               <div className="form-row">
                 <button type="submit" className="button" disabled={isSubmitting}>
