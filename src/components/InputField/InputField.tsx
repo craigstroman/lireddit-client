@@ -1,10 +1,9 @@
-import React, { InputHTMLAttributes } from 'react';
+import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { InputFieldProps } from '../../shared/Interfaces';
 
 export const InputField: React.FC<InputFieldProps> = ({ name, placeholder, fieldErrors, type, touched }) => {
   const inputFieldName: string = name;
-  console.log('type: ', type);
   return (
     <React.Fragment>
       <Field
