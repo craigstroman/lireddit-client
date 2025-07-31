@@ -1,20 +1,17 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { InputField } from '../../components/InputField/InputField';
+import { IFormValues } from '../../shared/Interfaces';
 import './Register.scss';
 
-interface IformValues {
-  username: string;
-  password: string;
-}
-
 export const Register: React.FC = () => {
-  const initialValues: IformValues = {
+  const initialValues: IFormValues = {
     username: '',
     password: '',
   };
 
-  const handleValidation = (values: IformValues) => {
-    const errors: IformValues = {
+  const handleValidation = (values: IFormValues) => {
+    const errors: IFormValues = {
       username: '',
       password: '',
     };
@@ -33,42 +30,28 @@ export const Register: React.FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           setSubmitting(false);
         }}
         validate={(values) => handleValidation(values)}
       >
-        {({ isSubmitting, errors, touched }) => (
-          <Form>
-            <div className="form-row">
-              <Field
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Enter a username"
-                className={errors.username && touched.username ? 'input error' : 'input'}
-                autocomplete="false"
-              />
-              <ErrorMessage name="username" component="div" className="error" />
-            </div>
+        {({ isSubmitting, errors, touched }) => {
+          return (
+            <Form>
+              <div className="form-row">
+                <InputField name="username" placeholder="Enter a username" touched fieldErrors={errors} />
+              </div>
 
-            <div className="form-row">
-              <Field
-                type="password"
-                name="password"
-                placeholder="Enter a password"
-                className={errors.username && touched.username ? 'input error' : 'input'}
-                autocomplete="false"
-              />
-              <ErrorMessage name="password" component="div" className="error" />
-            </div>
-            <div className="form-row">
-              <button type="submit" className="button" disabled={isSubmitting}>
-                Register
-              </button>
-            </div>
-          </Form>
-        )}
+              <div className="form-row">
+                <InputField name="password" placeholder="Enter a password" touched fieldErrors={errors} />
+              </div>
+              <div className="form-row">
+                <button type="submit" className="button" disabled={isSubmitting}>
+                  Register
+                </button>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
