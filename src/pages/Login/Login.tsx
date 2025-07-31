@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { InputField } from '../../components/InputField/InputField';
 import './Login.scss';
 
 interface IformValues {
@@ -41,26 +42,17 @@ export const Login: React.FC = () => {
         {({ isSubmitting, errors, touched }) => (
           <Form>
             <div className="form-row">
-              <Field
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Enter a username"
-                className={errors.username && touched.username ? 'input error' : 'input'}
-                autocomplete="false"
-              />
-              <ErrorMessage name="username" component="div" className="error" />
+              <InputField name="username" placeholder="Enter a username" touched fieldErrors={errors} />
             </div>
 
             <div className="form-row">
-              <Field
-                type="password"
+              <InputField
                 name="password"
                 placeholder="Enter a password"
-                className={errors.username && touched.username ? 'input error' : 'input'}
-                autocomplete="false"
+                touched
+                fieldErrors={errors}
+                type="password"
               />
-              <ErrorMessage name="password" component="div" className="error" />
             </div>
             <div className="form-row">
               <button type="submit" className="button" disabled={isSubmitting}>
