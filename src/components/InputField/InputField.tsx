@@ -1,0 +1,28 @@
+import React, { InputHTMLAttributes } from 'react';
+import { Field, ErrorMessage } from 'formik';
+import { IFormValues } from '../../shared/Interfaces';
+
+interface InputFieldProps {
+  placeholder: string;
+  name: string;
+  fieldErrors: any;
+  touched: any;
+}
+
+export const InputField: React.FC<InputFieldProps> = ({ name, placeholder, fieldErrors, touched }) => {
+  const inputFieldName: string = name;
+  return (
+    <React.Fragment>
+      <Field
+        name={name}
+        placeholder={placeholder}
+        id={name}
+        className={fieldErrors[inputFieldName] ? 'input error' : 'input'}
+        autocomplete="false"
+      />
+      <div className="error">
+        <ErrorMessage name={name} />
+      </div>
+    </React.Fragment>
+  );
+};
