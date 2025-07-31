@@ -38,6 +38,23 @@ export const Register: React.FC = () => {
           return (
             <Form>
               <div className="form-row">
+                <InputField name="first_name" placeholder="Enter a first name" touched fieldErrors={errors} />
+              </div>
+
+              <div className="form-row">
+                <InputField name="last_name" placeholder="Enter a last name" touched fieldErrors={errors} />
+              </div>
+
+              <div className="form-row">
+                <InputField
+                  name="email"
+                  placeholder="Enter a first email address"
+                  touched
+                  fieldErrors={errors}
+                />
+              </div>
+
+              <div className="form-row">
                 <InputField name="username" placeholder="Enter a username" touched fieldErrors={errors} />
               </div>
 
