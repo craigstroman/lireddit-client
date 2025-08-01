@@ -9,6 +9,5 @@ export interface InputFieldProps {
   fieldErrors: {
     [key: string]: string;
   };
-  touched: any;
   type?: string;
 }
