@@ -1,11 +1,12 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { InputFieldProps } from '../../shared/Interfaces';
+import './InputField.scss';
 
-export const InputField: React.FC<InputFieldProps> = ({ name, placeholder, fieldErrors, type, touched }) => {
+export const InputField: React.FC<InputFieldProps> = ({ name, placeholder, fieldErrors, type }) => {
   const inputFieldName: string = name;
   return (
-    <React.Fragment>
+    <div className="input-container">
       <Field
         type={type?.length ? type : 'text'}
         name={name}
@@ -17,6 +18,6 @@ export const InputField: React.FC<InputFieldProps> = ({ name, placeholder, field
       <div className="error">
         <ErrorMessage name={name} />
       </div>
-    </React.Fragment>
+    </div>
   );
 };
