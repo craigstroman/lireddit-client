@@ -36,8 +36,6 @@ export const Login: React.FC = () => {
   };
 
   const togglePasswordView = () => {
-    console.log('togglePasswordView: ');
-    console.log('fieldType: ', fieldType);
     if (fieldType === 'password') {
       setIcon(faEye);
       setFieldType('text');
