@@ -14,6 +14,7 @@ interface IformValues {
 export const Login: React.FC = () => {
   const [fieldType, setFieldType] = useState<string>('password');
   const [icon, setIcon] = useState<IconDefinition>(faEyeSlash);
+  const [iconLabel, setIconLabel] = useState<string>('Hide password');
 
   const initialValues: IformValues = {
     username: '',
@@ -39,9 +40,11 @@ export const Login: React.FC = () => {
     if (fieldType === 'password') {
       setIcon(faEye);
       setFieldType('text');
+      setIconLabel('Show password');
     } else {
       setIcon(faEyeSlash);
       setFieldType('password');
+      setIconLabel('Hide password');
     }
   };
   return (
@@ -70,7 +73,12 @@ export const Login: React.FC = () => {
                   type={fieldType}
                 />
                 <div className={errors ? 'toggle-password error' : 'toggle-password'}>
-                  <FontAwesomeIcon icon={icon} className="icon" onClick={togglePasswordView} />
+                  <FontAwesomeIcon
+                    icon={icon}
+                    className="icon"
+                    onClick={togglePasswordView}
+                    aria-label={iconLabel}
+                  />
                 </div>
               </div>
             </div>
