@@ -34,35 +34,29 @@ export const Register: React.FC = () => {
         }}
         validate={(values) => handleValidation(values)}
       >
-        {({ isSubmitting, errors, touched }) => {
+        {({ isSubmitting, errors }) => {
           return (
             <Form>
               <div className="form-row">
-                <InputField name="first_name" placeholder="Enter a first name" touched fieldErrors={errors} />
+                <InputField name="first_name" placeholder="Enter a first name" fieldErrors={errors} />
               </div>
 
               <div className="form-row">
-                <InputField name="last_name" placeholder="Enter a last name" touched fieldErrors={errors} />
+                <InputField name="last_name" placeholder="Enter a last name" fieldErrors={errors} />
               </div>
 
               <div className="form-row">
-                <InputField
-                  name="email"
-                  placeholder="Enter a first email address"
-                  touched
-                  fieldErrors={errors}
-                />
+                <InputField name="email" placeholder="Enter a first email address" fieldErrors={errors} />
               </div>
 
               <div className="form-row">
-                <InputField name="username" placeholder="Enter a username" touched fieldErrors={errors} />
+                <InputField name="username" placeholder="Enter a username" fieldErrors={errors} />
               </div>
 
               <div className="form-row">
                 <InputField
                   name="password"
                   placeholder="Enter a password"
-                  touched
                   fieldErrors={errors}
                   type="password"
                 />
