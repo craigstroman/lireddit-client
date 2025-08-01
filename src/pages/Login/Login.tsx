@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { InputField } from '../../components/InputField/InputField';
 import './Login.scss';
 
@@ -9,6 +12,9 @@ interface IformValues {
 }
 
 export const Login: React.FC = () => {
+  const [fieldType, setFieldType] = useState<string>('password');
+  const [icon, setIcon] = useState<IconDefinition>(faEyeSlash);
+
   const initialValues: IformValues = {
     username: '',
     password: '',
@@ -28,6 +34,18 @@ export const Login: React.FC = () => {
     }
     return errors;
   };
+
+  const togglePasswordView = () => {
+    console.log('togglePasswordView: ');
+    console.log('fieldType: ', fieldType);
+    if (fieldType === 'password') {
+      setIcon(faEye);
+      setFieldType('text');
+    } else {
+      setIcon(faEyeSlash);
+      setFieldType('password');
+    }
+  };
   return (
     <div className="login-container">
       <h1>Login</h1>
@@ -39,20 +57,24 @@ export const Login: React.FC = () => {
         }}
         validate={(values) => handleValidation(values)}
       >
-        {({ isSubmitting, errors, touched }) => (
+        {({ isSubmitting, errors }) => (
           <Form>
             <div className="form-row">
-              <InputField name="username" placeholder="Enter a username" touched fieldErrors={errors} />
+              <InputField name="username" placeholder="Enter a username" fieldErrors={errors} />
             </div>
 
             <div className="form-row">
-              <InputField
-                name="password"
-                placeholder="Enter a password"
-                touched
-                fieldErrors={errors}
-                type="password"
-              />
+              <div className="password-input-container">
+                <InputField
+                  name="password"
+                  placeholder="Enter a password"
+                  fieldErrors={errors}
+                  type={fieldType}
+                />
+                <div className={errors ? 'toggle-password error' : 'toggle-password'}>
+                  <FontAwesomeIcon icon={icon} className="icon" onClick={togglePasswordView} />
+                </div>
+              </div>
             </div>
             <div className="form-row">
               <button type="submit" className="button" disabled={isSubmitting}>
