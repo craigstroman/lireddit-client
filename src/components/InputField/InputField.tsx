@@ -13,7 +13,6 @@ export const InputField: React.FC<InputFieldProps> = ({ name, placeholder, field
         placeholder={placeholder}
         id={name}
         className={fieldErrors[inputFieldName] ? 'input error' : 'input'}
-        autocomplete="false"
       />
       <div className="error">
         <ErrorMessage name={name} />
