@@ -1,12 +1,15 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { gql, useMutation } from 'urql';
+import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { IFormValues } from '../../shared/Interfaces';
 import './Register.scss';
 
+// TODO: Figure out why Formik wont submit
+
 export const Register: React.FC = () => {
-  const REGISTER_MUTATION = useMutation(`
+  const REGISTER_MUTATION = gql`
     mutation Register(
       $first_name: String!
       $last_name: String!
@@ -35,8 +38,9 @@ export const Register: React.FC = () => {
         }
       }
     }
-  `);
-  const [, register] = useMutation(REGISTER_MUTATION);
+  `;
+
+  const [registerUserResult, executeRegisterResult] = useMutation(REGISTER_MUTATION);
   const initialValues: IFormValues = {
     first_name: '',
     last_name: '',
@@ -45,47 +49,30 @@ export const Register: React.FC = () => {
     password: '',
   };
 
-  const handleValidation = (values: IFormValues) => {
-    const errors: IFormValues = {
-      first_name: '',
-      last_name: '',
-      email: '',
-      username: '',
-      password: '',
-    };
-    if (!values.first_name) {
-      errors.first_name = 'First name is required.';
-    }
+  const validationSchema = Yup.object({
+    first_name: Yup.string().required('First name is required.'),
+    last_name: Yup.string().required('Last name is required.'),
+    email: Yup.string().email('Enter a valid email.').required('Email is required.'),
+    username: Yup.string().required('Username is required.'),
+    password: Yup.string()
+      .required('Password is required.')
+      .test('len', 'Password must be at least 5 characters long.', (val) => val.length >= 5),
+  });
 
-    if (!values.last_name) {
-      errors.last_name = 'Last name is required.';
-    }
-
-    if (!values.email) {
-      errors.email = 'Email is required.';
-    }
-
-    if (!values.username) {
-      errors.username = 'Username is required.';
-    }
-
-    if (!values.password) {
-      errors.password = 'Password is Required.';
-    }
-    return errors;
-  };
   return (
     <div className="register-container">
       <h1>Register a new account</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
-          setSubmitting(false);
-          // register()
+          console.log('submit form: ');
+          // setSubmitting(false);
+          executeRegisterResult(values);
         }}
-        validate={(values) => handleValidation(values)}
+        validationSchema={validationSchema}
       >
         {({ isSubmitting, errors }) => {
+          console.log('isSubmitting: ', isSubmitting);
           return (
             <Form>
               <div className="form-row">
@@ -113,7 +100,7 @@ export const Register: React.FC = () => {
                 />
               </div>
               <div className="form-row">
-                <button type="submit" className="button" disabled={isSubmitting}>
+                <button type="submit" className="button">
                   Register
                 </button>
               </div>
