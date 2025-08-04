@@ -9,6 +9,10 @@ const root = createRoot(element as HTMLDivElement);
 const client = new Client({
   url: 'http://localhost:9000/graphql',
   exchanges: [cacheExchange, fetchExchange],
+  fetchOptions: {
+    mode: 'no-cors',
+    credentials: 'same-origin',
+  },
 });
 
 root.render(
