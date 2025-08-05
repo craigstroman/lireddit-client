@@ -6,8 +6,6 @@ import { InputField } from '../../components/InputField/InputField';
 import { IFormValues } from '../../shared/Interfaces';
 import './Register.scss';
 
-// TODO: Figure out why Formik wont submit
-
 export const Register: React.FC = () => {
   const REGISTER_MUTATION = gql`
     mutation Register(
@@ -26,15 +24,15 @@ export const Register: React.FC = () => {
           password: $password
         }
       ) {
+        errors {
+          field
+          message
+        }
         user {
           id
           createdAt
           updatedAt
           username
-        }
-        errors {
-          field
-          message
         }
       }
     }
@@ -59,6 +57,8 @@ export const Register: React.FC = () => {
       .test('len', 'Password must be at least 5 characters long.', (val) => val.length >= 5),
   });
 
+  console.log('registerUserResult: ', registerUserResult);
+
   return (
     <div className="register-container">
       <h1>Register a new account</h1>
@@ -66,8 +66,16 @@ export const Register: React.FC = () => {
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
           console.log('submit form: ');
+
+          console.log('values: ', values);
           // setSubmitting(false);
-          executeRegisterResult(values);
+          executeRegisterResult({
+            first_name: values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            username: values.username,
+            password: values.password,
+          });
         }}
         validationSchema={validationSchema}
       >
