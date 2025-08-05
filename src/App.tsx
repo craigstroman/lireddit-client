@@ -11,7 +11,7 @@ const client = new Client({
   exchanges: [cacheExchange, fetchExchange],
   fetchOptions: {
     mode: 'no-cors',
-    credentials: 'same-origin',
+    credentials: 'include',
   },
 });
 
