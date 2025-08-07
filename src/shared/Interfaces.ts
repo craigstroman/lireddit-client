@@ -4,6 +4,7 @@ export interface IFormValues {
   email: string;
   username: string;
   password: string;
+  password_confirmation: string;
 }
 
 export interface InputFieldProps {
