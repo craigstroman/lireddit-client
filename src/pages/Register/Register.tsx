@@ -38,13 +38,14 @@ export const Register: React.FC = () => {
     }
   `;
 
-  const [registerUserResult, executeRegisterResult] = useMutation(REGISTER_MUTATION);
+  const [, executeRegisterResult] = useMutation(REGISTER_MUTATION);
   const initialValues: IFormValues = {
     first_name: '',
     last_name: '',
     email: '',
     username: '',
     password: '',
+    password_confirmation: '',
   };
 
   const validationSchema = Yup.object({
@@ -54,33 +55,35 @@ export const Register: React.FC = () => {
     username: Yup.string().required('Username is required.'),
     password: Yup.string()
       .required('Password is required.')
-      .test('len', 'Password must be at least 5 characters long.', (val) => val.length >= 5),
+      .min(6, 'Password must be at least 6 characters long.')
+      .matches(
+        /[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+        'Password must contain numbers and special characters.',
+      ),
+    password_confirmation: Yup.string()
+      .required('Password confirmation is required.')
+      .oneOf([Yup.ref('password')], 'Passwords must match.'),
   });
-
-  console.log('registerUserResult: ', registerUserResult);
 
   return (
     <div className="register-container">
       <h1>Register a new account</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log('submit form: ');
-
-          console.log('values: ', values);
-          // setSubmitting(false);
-          executeRegisterResult({
+        onSubmit={async (values) => {
+          const response = await executeRegisterResult({
             first_name: values.first_name,
             last_name: values.last_name,
             email: values.email,
             username: values.username,
             password: values.password,
           });
+
+          console.log('response: ', response);
         }}
         validationSchema={validationSchema}
       >
-        {({ isSubmitting, errors }) => {
-          console.log('isSubmitting: ', isSubmitting);
+        {({ errors }) => {
           return (
             <Form>
               <div className="form-row">
@@ -107,6 +110,16 @@ export const Register: React.FC = () => {
                   type="password"
                 />
               </div>
+
+              <div className="form-row">
+                <InputField
+                  name="password_confirmation"
+                  placeholder="Enter password confirmation"
+                  fieldErrors={errors}
+                  type="password"
+                />
+              </div>
+
               <div className="form-row">
                 <button type="submit" className="button">
                   Register
