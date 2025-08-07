@@ -56,10 +56,10 @@ export const Register: React.FC = () => {
     password: Yup.string()
       .required('Password is required.')
       .min(6, 'Password must be at least 6 characters long.')
-      .matches(
-        /[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
-        'Password must contain numbers and special characters.',
-      ),
+      .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
+      .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
+      .matches(/\d/, 'Password must have a number')
+      .matches(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g, 'Password must special characters.'),
     password_confirmation: Yup.string()
       .required('Password confirmation is required.')
       .oneOf([Yup.ref('password')], 'Passwords must match.'),
