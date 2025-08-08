@@ -3,7 +3,9 @@ import { Formik, Form } from 'formik';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
+import { useLoginMutation } from '../../generated/graphql';
 import './Login.scss';
 
 interface IformValues {
@@ -12,6 +14,7 @@ interface IformValues {
 }
 
 export const Login: React.FC = () => {
+  const [, executeLoginResult] = useLoginMutation();
   const [fieldType, setFieldType] = useState<string>('password');
   const [icon, setIcon] = useState<IconDefinition>(faEyeSlash);
   const [iconLabel, setIconLabel] = useState<string>('Hide password');
@@ -21,20 +24,10 @@ export const Login: React.FC = () => {
     password: '',
   };
 
-  const handleValidation = (values: IformValues) => {
-    const errors: IformValues = {
-      username: '',
-      password: '',
-    };
-    if (!values.username) {
-      errors.username = 'Username is required';
-    }
-
-    if (!values.password) {
-      errors.password = 'Password is Required';
-    }
-    return errors;
-  };
+  const validationSchema = Yup.object({
+    username: Yup.string().required('Username is required.'),
+    password: Yup.string().required('Password is required.'),
+  });
 
   const togglePasswordView = () => {
     if (fieldType === 'password') {
@@ -52,43 +45,49 @@ export const Login: React.FC = () => {
       <h1>Login</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
-          setSubmitting(false);
-        }}
-        validate={(values) => handleValidation(values)}
-      >
-        {({ isSubmitting, errors }) => (
-          <Form>
-            <div className="form-row">
-              <InputField name="username" placeholder="Enter a username" fieldErrors={errors} />
-            </div>
+        onSubmit={async (values) => {
+          const response = await executeLoginResult({
+            username: values.username,
+            password: values.password,
+          });
 
-            <div className="form-row">
-              <div className="password-input-container">
-                <InputField
-                  name="password"
-                  placeholder="Enter a password"
-                  fieldErrors={errors}
-                  type={fieldType}
-                />
-                <div className={errors ? 'toggle-password error' : 'toggle-password'}>
-                  <FontAwesomeIcon
-                    icon={icon}
-                    className="icon"
-                    onClick={togglePasswordView}
-                    aria-label={iconLabel}
+          console.log('response: ', response);
+        }}
+        validationSchema={validationSchema}
+      >
+        {({ errors, submitForm }) => {
+          return (
+            <Form>
+              <div className="form-row">
+                <InputField name="username" placeholder="Enter a username" fieldErrors={errors} />
+              </div>
+
+              <div className="form-row">
+                <div className="password-input-container">
+                  <InputField
+                    name="password"
+                    placeholder="Enter a password"
+                    fieldErrors={errors}
+                    type={fieldType}
                   />
+                  <div className={errors ? 'toggle-password error' : 'toggle-password'}>
+                    <FontAwesomeIcon
+                      icon={icon}
+                      className="icon"
+                      onClick={togglePasswordView}
+                      aria-label={iconLabel}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="form-row">
-              <button type="submit" className="button" disabled={isSubmitting}>
-                Login
-              </button>
-            </div>
-          </Form>
-        )}
+              <div className="form-row">
+                <button type="submit" className="button" onClick={submitForm}>
+                  Login
+                </button>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
