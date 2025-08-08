@@ -8,37 +8,6 @@ import { useRegisterMutation } from '../../generated/graphql';
 import './Register.scss';
 
 export const Register: React.FC = () => {
-  const REGISTER_MUTATION = gql`
-    mutation Register(
-      $first_name: String!
-      $last_name: String!
-      $email: String!
-      $username: String!
-      $password: String!
-    ) {
-      register(
-        options: {
-          first_name: $first_name
-          last_name: $last_name
-          email: $email
-          username: $username
-          password: $password
-        }
-      ) {
-        errors {
-          field
-          message
-        }
-        user {
-          id
-          createdAt
-          updatedAt
-          username
-        }
-      }
-    }
-  `;
-
   const [, executeRegisterResult] = useRegisterMutation();
   const initialValues: IFormValues = {
     first_name: '',
@@ -81,6 +50,7 @@ export const Register: React.FC = () => {
           });
 
           console.log('response: ', response);
+          console.log('response id: ', response.data?.register?.user?.id);
         }}
         validationSchema={validationSchema}
       >
