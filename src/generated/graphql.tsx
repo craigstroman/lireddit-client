@@ -44,12 +44,12 @@ export type MutationDeletePostByIdArgs = {
 
 
 export type MutationLoginArgs = {
-  options: UsernamePasswordInput;
+  options: UsernameLoginInput;
 };
 
 
 export type MutationRegisterArgs = {
-  options: UsernamePasswordInput;
+  options: UsernameRegisterInput;
 };
 
 
@@ -96,13 +96,26 @@ export type UserResponse = {
   user?: Maybe<User>;
 };
 
-export type UsernamePasswordInput = {
+export type UsernameLoginInput = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+export type UsernameRegisterInput = {
   email: Scalars['String']['input'];
   first_name: Scalars['String']['input'];
   last_name: Scalars['String']['input'];
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
 };
+
+export type LoginMutationVariables = Exact<{
+  username: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, createdAt: string, updatedAt: string, username: string } | null } };
 
 export type RegisterMutationVariables = Exact<{
   first_name: Scalars['String']['input'];
@@ -116,6 +129,26 @@ export type RegisterMutationVariables = Exact<{
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, createdAt: string, updatedAt: string, username: string } | null } };
 
 
+export const LoginDocument = gql`
+    mutation Login($username: String!, $password: String!) {
+  login(options: {username: $username, password: $password}) {
+    errors {
+      field
+      message
+    }
+    user {
+      id
+      createdAt
+      updatedAt
+      username
+    }
+  }
+}
+    `;
+
+export function useLoginMutation() {
+  return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
 export const RegisterDocument = gql`
     mutation Register($first_name: String!, $last_name: String!, $email: String!, $username: String!, $password: String!) {
   register(
