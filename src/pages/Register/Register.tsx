@@ -4,6 +4,7 @@ import { gql, useMutation } from 'urql';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { IFormValues } from '../../shared/Interfaces';
+import { useRegisterMutation } from '../../generated/graphql';
 import './Register.scss';
 
 export const Register: React.FC = () => {
@@ -38,7 +39,7 @@ export const Register: React.FC = () => {
     }
   `;
 
-  const [, executeRegisterResult] = useMutation(REGISTER_MUTATION);
+  const [, executeRegisterResult] = useRegisterMutation();
   const initialValues: IFormValues = {
     first_name: '',
     last_name: '',
