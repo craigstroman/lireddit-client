@@ -1,10 +1,10 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { gql, useMutation } from 'urql';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { IFormValues } from '../../shared/Interfaces';
 import { useRegisterMutation } from '../../generated/graphql';
+import { toErrorMap } from '../../utils/toErrorMap';
 import './Register.scss';
 
 export const Register: React.FC = () => {
@@ -40,7 +40,7 @@ export const Register: React.FC = () => {
       <h1>Register a new account</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values) => {
+        onSubmit={async (values, { setErrors }) => {
           const response = await executeRegisterResult({
             first_name: values.first_name,
             last_name: values.last_name,
@@ -51,6 +51,10 @@ export const Register: React.FC = () => {
 
           console.log('response: ', response);
           console.log('response id: ', response.data?.register?.user?.id);
+
+          if (response.data?.register.errors) {
+            setErrors(toErrorMap(response.data?.register.errors));
+          }
         }}
         validationSchema={validationSchema}
       >
