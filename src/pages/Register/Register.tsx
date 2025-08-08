@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
@@ -8,6 +9,7 @@ import { toErrorMap } from '../../utils/toErrorMap';
 import './Register.scss';
 
 export const Register: React.FC = () => {
+  const navigate = useNavigate();
   const [, executeRegisterResult] = useRegisterMutation();
   const initialValues: IFormValues = {
     first_name: '',
@@ -49,11 +51,10 @@ export const Register: React.FC = () => {
             password: values.password,
           });
 
-          console.log('response: ', response);
-          console.log('response id: ', response.data?.register?.user?.id);
-
           if (response.data?.register.errors) {
             setErrors(toErrorMap(response.data?.register.errors));
+          } else if (response.data?.register.user) {
+            navigate('/dashboard');
           }
         }}
         validationSchema={validationSchema}
