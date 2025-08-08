@@ -7,6 +7,11 @@ export interface IFormValues {
   password_confirmation: string;
 }
 
+export interface ILoginValues {
+  username: string;
+  password: string;
+}
+
 export interface InputFieldProps {
   placeholder: string;
   name: string;
