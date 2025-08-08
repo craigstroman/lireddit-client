@@ -5,13 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
+import { ILoginValues } from '../../shared/Interfaces';
 import { useLoginMutation } from '../../generated/graphql';
 import './Login.scss';
-
-interface IformValues {
-  username: string;
-  password: string;
-}
 
 export const Login: React.FC = () => {
   const [, executeLoginResult] = useLoginMutation();
@@ -19,7 +15,7 @@ export const Login: React.FC = () => {
   const [icon, setIcon] = useState<IconDefinition>(faEyeSlash);
   const [iconLabel, setIconLabel] = useState<string>('Hide password');
 
-  const initialValues: IformValues = {
+  const initialValues: ILoginValues = {
     username: '',
     password: '',
   };
