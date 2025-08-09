@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,9 +8,13 @@ import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { ILoginValues } from '../../shared/Interfaces';
 import { useLoginMutation } from '../../generated/graphql';
+import { toErrorMap } from '../../shared/utils/toErrorMap';
 import './Login.scss';
 
+//TODO: Continue trying to get secure route working for dashboard page
+
 export const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [, executeLoginResult] = useLoginMutation();
   const [fieldType, setFieldType] = useState<string>('password');
   const [icon, setIcon] = useState<IconDefinition>(faEyeSlash);
@@ -41,13 +46,20 @@ export const Login: React.FC = () => {
       <h1>Login</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values) => {
+        onSubmit={async (values, { setErrors }) => {
           const response = await executeLoginResult({
             username: values.username,
             password: values.password,
           });
 
           console.log('response: ', response);
+
+          if (response.data?.login.errors) {
+            setErrors(toErrorMap(response.data?.login.errors));
+          } else if (response.data?.login.user) {
+            //TODO: Continue to try and get private routes working with the login method
+            navigate('/dashboard');
+          }
         }}
         validationSchema={validationSchema}
       >
