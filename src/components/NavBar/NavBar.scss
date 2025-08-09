@@ -1,0 +1,14 @@
+header {
+  display: grid;
+  width: 100%;
+  justify-content: end;
+  .header-content {
+    display: grid;
+    gap: 20px;
+    /* the following rule has no effect, as this element isn't a grid-item: */
+    grid-column: span 2;
+
+    /* to create a two-column grid layout, we use the following: */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
