@@ -1,3 +1,7 @@
+@import '../../..//node_modules/bootstrap/scss/functions';
+@import '../../..//node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+@import '../../../node_modules/bootstrap/scss/buttons.scss';
 header {
   display: grid;
   width: 100%;
@@ -10,5 +14,12 @@ header {
 
     /* to create a two-column grid layout, we use the following: */
     grid-template-columns: repeat(2, 1fr);
+    .logout-button {
+      @extend .btn;
+      @extend .btn-link;
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 }
