@@ -11,8 +11,6 @@ import { useLoginMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../shared/utils/toErrorMap';
 import './Login.scss';
 
-//TODO: Continue trying to get secure route working for dashboard page
-
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [, executeLoginResult] = useLoginMutation();
@@ -52,12 +50,9 @@ export const Login: React.FC = () => {
             password: values.password,
           });
 
-          console.log('response: ', response);
-
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data?.login.errors));
           } else if (response.data?.login.user) {
-            //TODO: Continue to try and get private routes working with the login method
             navigate('/dashboard');
           }
         }}
