@@ -3,9 +3,9 @@ import { NavBar } from '../../components/NavBar/NavBar.';
 
 export const Index: React.FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <NavBar />
       <div>Hello world</div>
-    </div>
+    </React.Fragment>
   );
 };
