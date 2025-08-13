@@ -1,15 +1,12 @@
 import React from 'react';
-import Cookies from 'universal-cookie';
 import { useMeQuery, useLogoutMutation } from '../../generated/graphql';
 import './NavBar.scss';
 
 export const NavBar: React.FC = () => {
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
-  const cookies = new Cookies(null, { path: '/', domain: 'localhost' });
   const [{ data }] = useMeQuery();
-  const uid = cookies.get('uid');
 
-  if (uid) {
+  if (data?.me?.username) {
     return (
       <header>
         <div className="header-content">
