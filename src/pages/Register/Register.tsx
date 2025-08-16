@@ -44,11 +44,13 @@ export const Register: React.FC = () => {
         initialValues={initialValues}
         onSubmit={async (values, { setErrors }) => {
           const response = await executeRegisterResult({
-            first_name: values.first_name,
-            last_name: values.last_name,
-            email: values.email,
-            username: values.username,
-            password: values.password,
+            options: {
+              first_name: values.first_name,
+              last_name: values.last_name,
+              email: values.email,
+              username: values.username,
+              password: values.password,
+            },
           });
 
           if (response.data?.register.errors) {
