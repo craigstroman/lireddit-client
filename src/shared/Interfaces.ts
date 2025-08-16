@@ -8,7 +8,7 @@ export interface IFormValues {
 }
 
 export interface ILoginValues {
-  username: string;
+  usernameOrEmail: string;
   password: string;
 }
 
