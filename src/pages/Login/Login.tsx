@@ -19,12 +19,12 @@ export const Login: React.FC = () => {
   const [iconLabel, setIconLabel] = useState<string>('Hide password');
 
   const initialValues: ILoginValues = {
-    username: '',
+    usernameOrEmail: '',
     password: '',
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string().required('Username is required.'),
+    usernameOrEmail: Yup.string().required('Username is required.'),
     password: Yup.string().required('Password is required.'),
   });
 
@@ -46,7 +46,7 @@ export const Login: React.FC = () => {
         initialValues={initialValues}
         onSubmit={async (values, { setErrors }) => {
           const response = await executeLoginResult({
-            username: values.username,
+            usernameOrEmail: values.usernameOrEmail,
             password: values.password,
           });
 
@@ -62,7 +62,11 @@ export const Login: React.FC = () => {
           return (
             <Form>
               <div className="form-row">
-                <InputField name="username" placeholder="Enter a username" fieldErrors={errors} />
+                <InputField
+                  name="usernameOrEmail"
+                  placeholder="Enter a username or email"
+                  fieldErrors={errors}
+                />
               </div>
 
               <div className="form-row">
