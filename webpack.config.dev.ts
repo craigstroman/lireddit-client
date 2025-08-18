@@ -87,15 +87,17 @@ module.exports = {
   devServer: {
     hot: true,
     static: {
-      directory: path.join(__dirname, 'public'),
+      directory: path.resolve(__dirname, 'public'),
     },
     historyApiFallback: true,
   },
   plugins: [
     new ESLintPlugin(ESLintOptions),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      inject: false,
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
+      sourceMap: true,
+      devTool: 'source-map',
     }),
   ],
 };
