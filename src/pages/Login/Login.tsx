@@ -7,13 +7,12 @@ import { ILoginValues } from '../../shared/Interfaces';
 import { useLoginMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../shared/utils/toErrorMap';
 import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
-import { IErrors } from '../../shared/Interfaces';
 import './Login.scss';
 
 export const Login: React.FC = () => {
+  const [fieldType, setFieldType] = useState<string>('password');
   const navigate = useNavigate();
   const [, executeLoginResult] = useLoginMutation();
-  const [fieldType, setFieldType] = useState<string>('password');
 
   const initialValues: ILoginValues = {
     usernameOrEmail: '',
@@ -24,6 +23,10 @@ export const Login: React.FC = () => {
     usernameOrEmail: Yup.string().required('Username is required.'),
     password: Yup.string().required('Password is required.'),
   });
+
+  const handleToggleData = (data: string) => {
+    setFieldType(data);
+  };
 
   return (
     <div className="login-container">
@@ -63,7 +66,7 @@ export const Login: React.FC = () => {
                     fieldErrors={errors}
                     type={fieldType}
                   />
-                  <TogglePassword errors={errors} />
+                  <TogglePassword errors={errors} onSendValue={handleToggleData} />
                 </div>
               </div>
               <div className="form-row">
