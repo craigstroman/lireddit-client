@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { ILoginErrors, IErrors } from '../../shared/Interfaces';
+import { IErrors } from '../../shared/Interfaces';
 import './TogglePassword.scss';
 
 export const TogglePassword: React.FC<IErrors> = ({ errors }) => {
