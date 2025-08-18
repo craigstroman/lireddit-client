@@ -20,3 +20,18 @@ export interface InputFieldProps {
   };
   type?: string;
 }
+
+export interface IChangePassword {
+  newPassword: string;
+}
+
+export interface ILoginErrors {
+  usernameOfEmail?: string;
+  password?: string;
+  newPassword?: string;
+}
+
+export interface ITogglePassword {
+  errors: ILoginErrors;
+  onSendValue: (data: string) => void;
+}
