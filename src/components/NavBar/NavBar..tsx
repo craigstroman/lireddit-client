@@ -6,19 +6,18 @@ export const NavBar: React.FC = () => {
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
   const [{ data }] = useMeQuery();
 
+  const handleLogOut = () => {
+    logout();
+
+    window.location.reload();
+  };
+
   if (data?.me?.username) {
     return (
       <header>
         <div className="header-content">
           <div className="username">{data?.me?.username}</div>
-          <button
-            className="logout-button"
-            type="button"
-            onClick={() => {
-              logout();
-              window.location.reload();
-            }}
-          >
+          <button className="logout-button" type="button" onClick={handleLogOut}>
             Logout
           </button>
         </div>
