@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { ILoginValues } from '../../shared/Interfaces';
 import { useLoginMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../shared/utils/toErrorMap';
+import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
+import { IErrors } from '../../shared/Interfaces';
 import './Login.scss';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [, executeLoginResult] = useLoginMutation();
   const [fieldType, setFieldType] = useState<string>('password');
-  const [icon, setIcon] = useState<IconDefinition>(faEyeSlash);
-  const [iconLabel, setIconLabel] = useState<string>('Hide password');
 
   const initialValues: ILoginValues = {
     usernameOrEmail: '',
@@ -28,17 +25,6 @@ export const Login: React.FC = () => {
     password: Yup.string().required('Password is required.'),
   });
 
-  const togglePasswordView = () => {
-    if (fieldType === 'password') {
-      setIcon(faEye);
-      setFieldType('text');
-      setIconLabel('Show password');
-    } else {
-      setIcon(faEyeSlash);
-      setFieldType('password');
-      setIconLabel('Hide password');
-    }
-  };
   return (
     <div className="login-container">
       <h1>Login</h1>
@@ -77,14 +63,7 @@ export const Login: React.FC = () => {
                     fieldErrors={errors}
                     type={fieldType}
                   />
-                  <div className={errors ? 'toggle-password error' : 'toggle-password'}>
-                    <FontAwesomeIcon
-                      icon={icon}
-                      className="icon"
-                      onClick={togglePasswordView}
-                      aria-label={iconLabel}
-                    />
-                  </div>
+                  <TogglePassword errors={errors} />
                 </div>
               </div>
               <div className="form-row">

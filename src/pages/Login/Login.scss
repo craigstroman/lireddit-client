@@ -11,19 +11,6 @@
       position: relative;
       width: 400px;
       margin: 0 auto;
-      .toggle-password {
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        cursor: pointer;
-        &.error {
-          top: 5px;
-        }
-        .icon {
-          font-size: 1.5rem;
-          color: #000;
-        }
-      }
     }
 
     .button {
