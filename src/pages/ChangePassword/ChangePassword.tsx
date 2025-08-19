@@ -3,16 +3,20 @@ import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { toErrorMap } from '../../shared/utils/toErrorMap';
 import { InputField } from '../../components/InputField/InputField';
 import { IChangePassword } from '../../shared/Interfaces';
 import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
+import { useChangePasswordMutation } from '../../generated/graphql';
 import './ChangePassword.scss';
 
 // TODO: Continue creating change password page
 
 export const ChangePassword: React.FC = () => {
+  const navigate = useNavigate();
   const [fieldTypeOne, setFieldTypeOne] = useState<string>('password');
   const [fieldTypeTwo, setFieldTypeTwo] = useState<string>('password');
+  const [tokenError, setTokenError] = useState<string>('');
   const { token } = useParams();
   const initialValues: IChangePassword = {
     newPassword: '',
@@ -25,6 +29,13 @@ export const ChangePassword: React.FC = () => {
       .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
       .matches(/\d/, 'Password must have a number')
       .matches(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g, 'Password must special characters.'),
+    password_confirmation: Yup.string()
+      .required('Password confirmation is required.')
+      .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
+      .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
+      .matches(/\d/, 'Password must have a number')
+      .matches(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g, 'Password must special characters.')
+      .oneOf([Yup.ref('new_password')], 'Passwords must match.'),
   });
   console.log('token: ', token);
 
@@ -36,16 +47,35 @@ export const ChangePassword: React.FC = () => {
     setFieldTypeTwo(data);
   };
 
+  const [, changePassword] = useChangePasswordMutation();
+
   return (
     <div className="change-password-container">
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setErrors }) => {
-          console.log('onSubmit: ');
+          let response = undefined;
+          if (token) {
+            response = await changePassword({
+              newPassword: values.newPassword,
+              token,
+            });
+          }
+
+          if (response && response.data?.changePassword.errors) {
+            const errorMap = toErrorMap(response.data.changePassword.errors);
+            if ('token' in errorMap) {
+              setTokenError(errorMap.token);
+            }
+            setErrors(errorMap);
+          } else if (response && response.data?.changePassword.user) {
+            // worked
+            navigate('/');
+          }
         }}
         validationSchema={validationSchema}
       >
-        {({ errors }) => {
+        {({ errors, submitForm }) => {
           return (
             <Form>
               <div className="form-row">
@@ -69,6 +99,11 @@ export const ChangePassword: React.FC = () => {
                   />
                   <TogglePassword errors={errors} onSendValue={handleToggleFieldTwo} />
                 </div>
+              </div>
+              <div className="form-row">
+                <button type="submit" className="save-password-button" onClick={submitForm}>
+                  Save Password
+                </button>
               </div>
             </Form>
           );
