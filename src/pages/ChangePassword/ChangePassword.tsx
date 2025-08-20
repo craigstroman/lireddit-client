@@ -10,8 +10,6 @@ import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
 import { useChangePasswordMutation } from '../../generated/graphql';
 import './ChangePassword.scss';
 
-// TODO: Continue creating change password page
-
 export const ChangePassword: React.FC = () => {
   const navigate = useNavigate();
   const [fieldTypeOne, setFieldTypeOne] = useState<string>('password');
