@@ -35,7 +35,6 @@ export const ChangePassword: React.FC = () => {
       .matches(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g, 'Password must special characters.')
       .oneOf([Yup.ref('new_password')], 'Passwords must match.'),
   });
-  console.log('token: ', token);
 
   const handleToggleFieldOne = (data: string) => {
     setFieldTypeOne(data);
