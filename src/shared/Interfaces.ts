@@ -22,13 +22,14 @@ export interface InputFieldProps {
 }
 
 export interface IChangePassword {
-  newPassword: string;
+  new_password: string;
+  password_confirmation: string;
 }
 
 export interface ILoginErrors {
   usernameOfEmail?: string;
   password?: string;
-  newPassword?: string;
+  new_password?: string;
 }
 
 export interface ITogglePassword {
