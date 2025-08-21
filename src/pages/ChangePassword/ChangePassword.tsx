@@ -17,7 +17,8 @@ export const ChangePassword: React.FC = () => {
   const [tokenError, setTokenError] = useState<string>('');
   const { token } = useParams();
   const initialValues: IChangePassword = {
-    newPassword: '',
+    new_password: '',
+    password_confirmation: '',
   };
   const validationSchema = Yup.object({
     new_password: Yup.string()
@@ -54,7 +55,7 @@ export const ChangePassword: React.FC = () => {
           let response = undefined;
           if (token) {
             response = await changePassword({
-              newPassword: values.newPassword,
+              new_password: values.new_password,
               token,
             });
           }
@@ -73,12 +74,13 @@ export const ChangePassword: React.FC = () => {
         validationSchema={validationSchema}
       >
         {({ errors, submitForm }) => {
+          console.log('errors: ', errors);
           return (
             <Form>
               <div className="form-row">
                 <div className="password-input-container">
                   <InputField
-                    name="newPassword"
+                    name="new_password"
                     placeholder="Enter a password"
                     fieldErrors={errors}
                     type={fieldTypeOne}
@@ -89,7 +91,7 @@ export const ChangePassword: React.FC = () => {
               <div className="form-row">
                 <div className="password-input-container">
                   <InputField
-                    name="passwordConfirmation"
+                    name="password_confirmation"
                     placeholder="Enter password confirmation"
                     fieldErrors={errors}
                     type={fieldTypeTwo}
