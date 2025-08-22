@@ -73,7 +73,12 @@ export const Register: React.FC = () => {
               </div>
 
               <div className="form-row">
-                <InputField name="email" placeholder="Enter a first email address" fieldErrors={errors} />
+                <InputField
+                  name="email"
+                  placeholder="Enter a first email address"
+                  fieldErrors={errors}
+                  type="email"
+                />
               </div>
 
               <div className="form-row">
