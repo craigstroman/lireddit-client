@@ -31,7 +31,9 @@ export const ForgotPassword: React.FC = () => {
       >
         {({ errors }) => {
           if (complete) {
-            return <div>If an account with that email exists, we sent you can email</div>;
+            return (
+              <div className="content">If an account with that email exists, we sent you can email.</div>
+            );
           } else {
             return (
               <Form>
