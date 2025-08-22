@@ -8,7 +8,7 @@ import { useForgotPasswordMutation } from '../../generated/graphql';
 import './ForgotPassword.scss';
 
 export const ForgotPassword: React.FC = () => {
-  const [complete, setComplete] = useState(false);
+  const [complete, setComplete] = useState<boolean>(false);
   const initialValues: IForgotPassword = {
     email: '',
   };
