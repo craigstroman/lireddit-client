@@ -38,7 +38,7 @@ export const ForgotPassword: React.FC = () => {
             return (
               <Form>
                 <div className="form-row">
-                  <InputField name="email" placeholder="Enter a email" fieldErrors={errors} />
+                  <InputField name="email" placeholder="Enter a email" fieldErrors={errors} type="email" />
                 </div>
                 <div className="form-row">
                   <button type="submit" className="button">
