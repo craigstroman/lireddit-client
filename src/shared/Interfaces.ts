@@ -36,3 +36,7 @@ export interface ITogglePassword {
   errors: ILoginErrors;
   onSendValue: (data: string) => void;
 }
+
+export interface IForgotPassword {
+  email: string;
+}
