@@ -5,8 +5,7 @@ import { Login } from '../Login/Login';
 import { Dashboard } from '../Dashboard/Dashboard';
 import { ChangePassword } from '../ChangePassword/ChangePassword';
 import './Main.scss';
-
-// TODO: Figure out how to get route with a parameter working, right now nesting the route doesn't work
+å;
 
 export const Main: React.FC = () => {
   return (
