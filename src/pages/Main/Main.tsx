@@ -4,8 +4,8 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { Dashboard } from '../Dashboard/Dashboard';
 import { ChangePassword } from '../ChangePassword/ChangePassword';
+import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
 import './Main.scss';
-å;
 
 export const Main: React.FC = () => {
   return (
@@ -18,6 +18,7 @@ export const Main: React.FC = () => {
         <Route path="/change-password">
           <Route path=":token" element={<ChangePassword />} />
         </Route>
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );
