@@ -74,7 +74,6 @@ export const ChangePassword: React.FC = () => {
         validationSchema={validationSchema}
       >
         {({ errors, submitForm }) => {
-          console.log('errors: ', errors);
           return (
             <Form>
               <div className="form-row">
