@@ -9,6 +9,7 @@ import './ForgotPassword.scss';
 
 export const ForgotPassword: React.FC = () => {
   const [complete, setComplete] = useState<boolean>(false);
+  const [linkURL, setLinkURL] = useState<string>('');
   const initialValues: IForgotPassword = {
     email: '',
   };
@@ -24,15 +25,20 @@ export const ForgotPassword: React.FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setErrors }) => {
-          await forgotPassword(values);
+          const response = await forgotPassword(values);
           setComplete(true);
+          if (response && response.data) {
+            setLinkURL(response.data.forgotPassword);
+          }
         }}
         validationSchema={validationSchema}
       >
         {({ errors }) => {
           if (complete) {
             return (
-              <div className="content">If an account with that email exists, we sent you can email.</div>
+              <div className="content">
+                <a href={linkURL}>Change Password</a>
+              </div>
             );
           } else {
             return (
