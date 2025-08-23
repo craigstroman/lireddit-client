@@ -28,7 +28,7 @@ export type Mutation = {
   changePassword: UserResponse;
   createPost: Post;
   deletePostById: Scalars['Boolean']['output'];
-  forgotPassword: Scalars['Boolean']['output'];
+  forgotPassword: Scalars['String']['output'];
   login: UserResponse;
   logout: Scalars['Boolean']['output'];
   register: UserResponse;
@@ -138,7 +138,7 @@ export type ForgotPasswordMutationVariables = Exact<{
 }>;
 
 
-export type ForgotPasswordMutation = { __typename?: 'Mutation', forgotPassword: boolean };
+export type ForgotPasswordMutation = { __typename?: 'Mutation', forgotPassword: string };
 
 export type LoginMutationVariables = Exact<{
   usernameOrEmail: Scalars['String']['input'];
