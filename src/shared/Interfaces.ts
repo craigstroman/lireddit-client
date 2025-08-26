@@ -19,6 +19,7 @@ export interface InputFieldProps {
     [key: string]: string;
   };
   type?: string;
+  textArea?: boolean;
 }
 
 export interface IChangePassword {
