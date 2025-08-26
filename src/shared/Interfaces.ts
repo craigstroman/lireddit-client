@@ -40,3 +40,8 @@ export interface ITogglePassword {
 export interface IForgotPassword {
   email: string;
 }
+
+export interface ICreatePost {
+  title: string;
+  text: string;
+}
