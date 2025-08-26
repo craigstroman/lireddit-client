@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface IFormValues {
   first_name: string;
   last_name: string;
@@ -45,4 +47,8 @@ export interface IForgotPassword {
 export interface ICreatePost {
   title: string;
   text: string;
+}
+
+export interface BaseLayoutProps {
+  children?: ReactNode;
 }
