@@ -31,7 +31,7 @@ export const CreatePost: React.FC = () => {
 
               <div className="form-row">
                 <div className="password-input-container">
-                  <InputField name="text" placeholder="Body..." fieldErrors={errors} />
+                  <InputField name="text" placeholder="Body..." fieldErrors={errors} textArea={true} />
                 </div>
               </div>
               <div className="form-row">
