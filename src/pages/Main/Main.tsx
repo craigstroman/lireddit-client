@@ -5,6 +5,7 @@ import { Login } from '../Login/Login';
 import { Dashboard } from '../Dashboard/Dashboard';
 import { ChangePassword } from '../ChangePassword/ChangePassword';
 import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
+import { CreatePost } from '../CreatePost/CreatePost';
 import './Main.scss';
 
 export const Main: React.FC = () => {
@@ -19,6 +20,7 @@ export const Main: React.FC = () => {
           <Route path=":token" element={<ChangePassword />} />
         </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/create-post" element={<CreatePost />} />
       </Routes>
     </BrowserRouter>
   );
