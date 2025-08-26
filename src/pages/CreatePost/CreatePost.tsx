@@ -5,9 +5,8 @@ import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { ICreatePost } from '../../shared/Interfaces';
 import { FieldError, useCreatePostMutation } from '../../generated/graphql';
+import { Layout } from '../../components/Layout/Layout';
 import './CreatePost.scss';
-import { create } from 'domain';
-import { toErrorMap } from '../../shared/utils/toErrorMap';
 
 export const CreatePost: React.FC = () => {
   const navigate = useNavigate();
@@ -21,40 +20,42 @@ export const CreatePost: React.FC = () => {
     text: Yup.string().required('Body is required.'),
   });
   return (
-    <div className="create-post-container">
-      <h1>Create Post</h1>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={async (values, { setErrors }) => {
-          const response = await createPost({ input: values });
+    <Layout>
+      <div className="create-post-container">
+        <h1>Create Post</h1>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={async (values, { setErrors }) => {
+            const response = await createPost({ input: values });
 
-          if (response.data?.createPost) {
-            navigate('/dashboard');
-          }
-        }}
-        validationSchema={validationSchema}
-      >
-        {({ errors, submitForm }) => {
-          return (
-            <Form>
-              <div className="form-row">
-                <InputField name="title" placeholder="Title" fieldErrors={errors} />
-              </div>
-
-              <div className="form-row">
-                <div className="password-input-container">
-                  <InputField name="text" placeholder="Body..." fieldErrors={errors} textArea={true} />
+            if (response.data?.createPost) {
+              navigate('/dashboard');
+            }
+          }}
+          validationSchema={validationSchema}
+        >
+          {({ errors, submitForm }) => {
+            return (
+              <Form>
+                <div className="form-row">
+                  <InputField name="title" placeholder="Title" fieldErrors={errors} />
                 </div>
-              </div>
-              <div className="form-row">
-                <button type="submit" className="button" onClick={submitForm}>
-                  Create Post
-                </button>
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
-    </div>
+
+                <div className="form-row">
+                  <div className="password-input-container">
+                    <InputField name="text" placeholder="Body..." fieldErrors={errors} textArea={true} />
+                  </div>
+                </div>
+                <div className="form-row">
+                  <button type="submit" className="button" onClick={submitForm}>
+                    Create Post
+                  </button>
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
+      </div>
+    </Layout>
   );
 };
