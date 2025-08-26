@@ -36,13 +36,8 @@ export const CreatePost: React.FC = () => {
               </div>
               <div className="form-row">
                 <button type="submit" className="button" onClick={submitForm}>
-                  Login
+                  Create Post
                 </button>
-              </div>
-              <div className="form-row">
-                <a href="/forgot-password" className="forgot-password-link">
-                  Forgot Password?
-                </a>
               </div>
             </Form>
           );
