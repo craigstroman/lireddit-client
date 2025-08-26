@@ -1,11 +1,17 @@
 import { Form, Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { ICreatePost } from '../../shared/Interfaces';
+import { FieldError, useCreatePostMutation } from '../../generated/graphql';
 import './CreatePost.scss';
+import { create } from 'domain';
+import { toErrorMap } from '../../shared/utils/toErrorMap';
 
 export const CreatePost: React.FC = () => {
+  const navigate = useNavigate();
+  const [, createPost] = useCreatePostMutation();
   const initialValues: ICreatePost = {
     title: '',
     text: '',
@@ -19,7 +25,13 @@ export const CreatePost: React.FC = () => {
       <h1>Create Post</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values, { setErrors }) => {}}
+        onSubmit={async (values, { setErrors }) => {
+          const response = await createPost({ input: values });
+
+          if (response.data?.createPost) {
+            navigate('/dashboard');
+          }
+        }}
         validationSchema={validationSchema}
       >
         {({ errors, submitForm }) => {
