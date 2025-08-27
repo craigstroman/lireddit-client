@@ -1,11 +1,10 @@
 import React from 'react';
-import { NavBar } from '../../components/NavBar/NavBar.';
+import { Layout } from '../../components/Layout/Layout';
+import { usePostsQuery } from '../../generated/graphql';
 
 export const Index: React.FC = () => {
+  const [{ data }] = usePostsQuery();
   return (
-    <React.Fragment>
-      <NavBar />
-      <div>Hello world</div>
-    </React.Fragment>
+    <Layout>{!data ? <div>loading...</div> : data.posts.map((p) => <div key={p.id}>{p.title}</div>)}</Layout>
   );
 };
