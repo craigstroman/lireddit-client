@@ -7,6 +7,11 @@ header {
   display: grid;
   width: 100%;
   justify-content: end;
+  background-color: #fe9d04;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   .header-content {
     display: grid;
     gap: 20px;
@@ -15,6 +20,7 @@ header {
 
     /* to create a two-column grid layout, we use the following: */
     grid-template-columns: repeat(2, 1fr);
+
     .logout-button {
       @extend .btn;
       @extend .btn-link;
