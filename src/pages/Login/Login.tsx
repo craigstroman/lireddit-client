@@ -10,6 +10,7 @@ import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
 import './Login.scss';
 
 export const Login: React.FC = () => {
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [fieldType, setFieldType] = useState<string>('password');
   const navigate = useNavigate();
   const [, executeLoginResult] = useLoginMutation();
@@ -31,16 +32,19 @@ export const Login: React.FC = () => {
   return (
     <div className="login-container">
       <h1>Login</h1>
+      {errorMessage && errorMessage.length && <div className="form-error">{errorMessage}</div>}
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values, { setErrors }) => {
+        onSubmit={async (values) => {
           const response = await executeLoginResult({
             usernameOrEmail: values.usernameOrEmail,
             password: values.password,
           });
 
           if (response.data?.login.errors) {
-            setErrors(toErrorMap(response.data?.login.errors));
+            console.log('response.data?.login.errors[0].message: ', response.data?.login.errors[0].message);
+
+            setErrorMessage(response.data?.login.errors[0].message);
           } else if (response.data?.login.user) {
             navigate('/dashboard');
           }
