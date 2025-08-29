@@ -49,6 +49,7 @@ export const ChangePassword: React.FC = () => {
 
   return (
     <div className="change-password-container">
+      {tokenError && <div className="form-error">{tokenError}</div>}
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setErrors }) => {
@@ -67,8 +68,7 @@ export const ChangePassword: React.FC = () => {
             }
             setErrors(errorMap);
           } else if (response && response.data?.changePassword.user) {
-            // worked
-            navigate('/');
+            navigate('/dashboard');
           }
         }}
         validationSchema={validationSchema}
