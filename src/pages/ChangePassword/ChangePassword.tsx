@@ -12,14 +12,17 @@ import './ChangePassword.scss';
 
 export const ChangePassword: React.FC = () => {
   const navigate = useNavigate();
+
   const [fieldTypeOne, setFieldTypeOne] = useState<string>('password');
   const [fieldTypeTwo, setFieldTypeTwo] = useState<string>('password');
   const [tokenError, setTokenError] = useState<string>('');
   const { token } = useParams();
+
   const initialValues: IChangePassword = {
     new_password: '',
     password_confirmation: '',
   };
+
   const validationSchema = Yup.object({
     new_password: Yup.string()
       .required('Password is required.')
