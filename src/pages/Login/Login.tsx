@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { ILoginValues } from '../../shared/Interfaces';
 import { useLoginMutation } from '../../generated/graphql';
-import { toErrorMap } from '../../shared/utils/toErrorMap';
 import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
 import './Login.scss';
 
 export const Login: React.FC = () => {
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [fieldType, setFieldType] = useState<string>('password');
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [fieldType, setFieldType] = useState<string>('password');
   const [, executeLoginResult] = useLoginMutation();
 
   const initialValues: ILoginValues = {
@@ -29,6 +29,12 @@ export const Login: React.FC = () => {
     setFieldType(data);
   };
 
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/dashboard');
+    }
+  }, [loggedIn]);
+
   return (
     <div className="login-container">
       <h1>Login</h1>
@@ -42,11 +48,9 @@ export const Login: React.FC = () => {
           });
 
           if (response.data?.login.errors) {
-            console.log('response.data?.login.errors[0].message: ', response.data?.login.errors[0].message);
-
             setErrorMessage(response.data?.login.errors[0].message);
-          } else if (response.data?.login.user) {
-            navigate('/dashboard');
+          } else if (response.data?.login.user?.id) {
+            setLoggedIn(true);
           }
         }}
         validationSchema={validationSchema}
