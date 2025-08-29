@@ -1,23 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMeQuery } from '../../generated/graphql';
-import { NavBar } from '../../components/NavBar/NavBar.';
+import { Layout } from '../../components/Layout/Layout';
 import './Dashboard.scss';
 
 export const Dashboard: React.FC = () => {
-  const [{ data }] = useMeQuery();
   const navigate = useNavigate();
+  const [{ data }] = useMeQuery();
 
-  useEffect(() => {
-    if (!data?.me?.username) {
-      navigate('/');
-    }
-  }, [data]);
+  if (!data?.me.username) {
+    navigate('/');
+  }
 
   return (
-    <div className="dashboard-container">
-      <NavBar />
+    <Layout>
       <div className="content">Dashboard</div>
-    </div>
+    </Layout>
   );
 };
