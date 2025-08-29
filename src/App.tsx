@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Client, Provider } from 'urql';
+import { Client, Provider, cacheExchange, fetchExchange } from 'urql';
 import { Main } from './pages/Main/Main';
 
 const element = document.getElementById('app');
@@ -11,6 +11,7 @@ const client = new Client({
   fetchOptions: {
     credentials: 'include',
   },
+  exchanges: [cacheExchange, fetchExchange],
 });
 
 root.render(
