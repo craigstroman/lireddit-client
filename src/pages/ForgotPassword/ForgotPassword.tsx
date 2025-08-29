@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { IForgotPassword } from '../../shared/Interfaces';
-import { useForgotPasswordMutation } from '../../generated/graphql';
+import { useForgotPasswordMutation, useMeQuery } from '../../generated/graphql';
 import './ForgotPassword.scss';
 
 export const ForgotPassword: React.FC = () => {
+  const [{ data }] = useMeQuery();
   const [complete, setComplete] = useState<boolean>(false);
   const [linkURL, setLinkURL] = useState<string>('');
   const initialValues: IForgotPassword = {
     email: '',
   };
+
+  console.log('data: ', data);
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Enter a valid email.').required('Email is required.'),
