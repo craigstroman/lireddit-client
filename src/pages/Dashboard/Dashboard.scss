@@ -1,7 +1,16 @@
-.dashboard-container {
+.container {
   display: grid;
   width: 100%;
   .content {
     margin-left: 1rem;
+    .create-post-link {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      a {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
