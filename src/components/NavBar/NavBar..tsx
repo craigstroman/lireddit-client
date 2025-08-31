@@ -27,6 +27,7 @@ export const NavBar: React.FC = () => {
   }, [fetching]);
 
   // TODO: Continue figuring out how to rerun meQuery after a user logs out so that the data in data is updated.
+  // TODO: Figure out how to reset cached query because the query is cached
 
   const handleLogout = () => {
     logout();
