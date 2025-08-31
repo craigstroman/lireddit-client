@@ -1,23 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMeQuery, useLogoutMutation } from '../../generated/graphql';
 import './NavBar.scss';
 
+interface IUser {
+  id: number;
+  username: string;
+}
+
 export const NavBar: React.FC = () => {
   const [, logout] = useLogoutMutation();
-  const [{ data }] = useMeQuery();
+  const [{ data, fetching }] = useMeQuery();
+  const [user, setUser] = useState<IUser | null>(null);
+  const navigate = useNavigate();
 
-  const handleLogOut = () => {
+  useEffect(() => {
+    if (!fetching && data) {
+      if (data.me) {
+        setUser({
+          id: data.me.id,
+          username: data.me.username,
+        });
+      }
+    }
+    setUser(null);
+  }, [fetching]);
+
+  // TODO: Continue figuring out how to rerun meQuery after a user logs out so that the data in data is updated.
+
+  const handleLogout = () => {
     logout();
-
-    window.location.reload();
+    navigate('/');
+    setUser(null);
   };
 
-  if (data?.me?.username) {
+  if (user?.username) {
     return (
       <header>
         <div className="header-content">
           <div className="username">{data?.me?.username}</div>
-          <button className="logout-button" type="button" onClick={handleLogOut}>
+          <button className="logout-button" type="button" onClick={handleLogout}>
             Logout
           </button>
         </div>
