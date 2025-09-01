@@ -5,7 +5,11 @@ import { Layout } from '../../components/Layout/Layout';
 import './Dashboard.scss';
 
 export const Dashboard: React.FC = () => {
-  const [{ data: posts }] = usePostsQuery();
+  const [{ data: posts }] = usePostsQuery({
+    variables: {
+      limit: 10,
+    },
+  });
   const [{ data, fetching }] = useMeQuery();
   const navigate = useNavigate();
 
