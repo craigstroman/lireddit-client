@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMeQuery, useLogoutMutation } from '../../generated/graphql';
+import { IUser } from '../../shared/Interfaces';
 import './NavBar.scss';
-
-interface IUser {
-  id: number;
-  username: string;
-}
 
 export const NavBar: React.FC = () => {
   const [, logout] = useLogoutMutation();
