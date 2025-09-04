@@ -52,3 +52,8 @@ export interface ICreatePost {
 export interface BaseLayoutProps {
   children?: ReactNode;
 }
+
+export interface IUser {
+  id: number;
+  username: string;
+}
