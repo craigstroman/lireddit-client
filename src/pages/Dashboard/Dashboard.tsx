@@ -9,13 +9,11 @@ export const Dashboard: React.FC = () => {
     limit: 10,
     cursor: null as null | string,
   });
-  const [{ data: posts }] = usePostsQuery({
+  const [{ data: posts, fetching: loading }] = usePostsQuery({
     variables,
   });
   const [{ data, fetching }] = useMeQuery();
   const navigate = useNavigate();
-
-  console.log('posts: ', posts);
 
   useEffect(() => {
     if (!fetching) {
@@ -24,6 +22,21 @@ export const Dashboard: React.FC = () => {
       }
     }
   }, [data, fetching]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="content">
+          <h1>Dashboard</h1>
+          <div className="create-post-link">
+            <a href="/create-post">Create a post</a>
+          </div>
+          <div className="spinner-border"></div>
+          <div>Loading...</div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
