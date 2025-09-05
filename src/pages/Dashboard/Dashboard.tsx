@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMeQuery, usePostsQuery } from '../../generated/graphql';
 import { Layout } from '../../components/Layout/Layout';
@@ -10,7 +10,7 @@ export const Dashboard: React.FC = () => {
       limit: 10,
     },
   });
-  const [{ data, fetching }] = useMeQuery();
+  const [{ data, fetching, error }] = useMeQuery({ requestPolicy: 'network-only' });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const Dashboard: React.FC = () => {
         <div className="create-post-link">
           <a href="/create-post">Create a post</a>
         </div>
-        {posts && posts.posts.map((el) => <div key={el.id}>{el.title}</div>)}
+        {posts && posts.posts.map((el: any) => <div key={el.id}>{el.title}</div>)}
       </div>
     </Layout>
   );
