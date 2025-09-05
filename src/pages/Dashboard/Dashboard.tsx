@@ -10,7 +10,7 @@ export const Dashboard: React.FC = () => {
       limit: 10,
     },
   });
-  const [{ data, fetching, error }] = useMeQuery({ requestPolicy: 'network-only' });
+  const [{ data, fetching }] = useMeQuery({ requestPolicy: 'network-only' });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +28,13 @@ export const Dashboard: React.FC = () => {
         <div className="create-post-link">
           <a href="/create-post">Create a post</a>
         </div>
-        {posts && posts.posts.map((el: any) => <div key={el.id}>{el.title}</div>)}
+        {posts &&
+          posts.posts.map((el: any) => (
+            <div className="card">
+              <h5 className="card-title">{el.title}</h5>
+              <p className="card-text">{el.textSnippet}</p>
+            </div>
+          ))}
       </div>
     </Layout>
   );
