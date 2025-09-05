@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMeQuery, usePostsQuery } from '../../generated/graphql';
 import { Layout } from '../../components/Layout/Layout';
 import './Dashboard.scss';
 
 export const Dashboard: React.FC = () => {
-  const [{ data: posts }] = usePostsQuery({
-    variables: {
-      limit: 10,
-    },
+  const [variables, setVariables] = useState({
+    limit: 10,
+    cursor: null as null | string,
   });
-  const [{ data, fetching }] = useMeQuery({ requestPolicy: 'network-only' });
+  const [{ data: posts }] = usePostsQuery({
+    variables,
+  });
+  const [{ data, fetching }] = useMeQuery();
   const navigate = useNavigate();
+
+  console.log('posts: ', posts);
 
   useEffect(() => {
     if (!fetching) {
@@ -30,11 +34,25 @@ export const Dashboard: React.FC = () => {
         </div>
         {posts &&
           posts.posts.map((el: any) => (
-            <div className="card">
+            <div className="card" key={el.id}>
               <h5 className="card-title">{el.title}</h5>
               <p className="card-text">{el.textSnippet}</p>
             </div>
           ))}
+        <div className="button">
+          <button
+            type="button"
+            className="load-more-button"
+            onClick={() => {
+              setVariables({
+                limit: variables.limit,
+                cursor: posts?.posts[posts?.posts.length - 1].createdAt || '',
+              });
+            }}
+          >
+            Load More
+          </button>
+        </div>
       </div>
     </Layout>
   );
