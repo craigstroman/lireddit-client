@@ -46,25 +46,27 @@ export const Dashboard: React.FC = () => {
           <a href="/create-post">Create a post</a>
         </div>
         {posts &&
-          posts.posts.map((el: any) => (
+          posts.posts.posts.map((el: any) => (
             <div className="card" key={el.id}>
               <h5 className="card-title">{el.title}</h5>
               <p className="card-text">{el.textSnippet}</p>
             </div>
           ))}
         <div className="button">
-          <button
-            type="button"
-            className="load-more-button"
-            onClick={() => {
-              setVariables({
-                limit: variables.limit,
-                cursor: posts?.posts[posts?.posts.length - 1].createdAt || '',
-              });
-            }}
-          >
-            Load More
-          </button>
+          {posts && posts.posts.hasMore && (
+            <button
+              type="button"
+              className="load-more-button"
+              onClick={() => {
+                setVariables({
+                  limit: variables.limit,
+                  cursor: posts?.posts.posts[posts?.posts.posts.length - 1].createdAt || '',
+                });
+              }}
+            >
+              Load More
+            </button>
+          )}
         </div>
       </div>
     </Layout>
