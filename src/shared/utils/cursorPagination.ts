@@ -1,4 +1,5 @@
 import { stringifyVariables } from 'urql';
+import { Resolver } from '@urql/exchange-graphcache';
 
 export const cursorPagination = (): Resolver => {
   return (_parent: any, fieldArgs: any, cache: any, info: any) => {
