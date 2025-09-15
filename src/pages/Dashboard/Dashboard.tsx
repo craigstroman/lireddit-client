@@ -51,6 +51,7 @@ export const Dashboard: React.FC = () => {
           posts.posts.posts.map((el: any) => (
             <div className="card" key={el.id}>
               <h5 className="card-title">{el.title}</h5>
+              Posted by {el.creator.username}
               <p className="card-text">{el.textSnippet}</p>
             </div>
           ))}
