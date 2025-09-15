@@ -7,6 +7,8 @@ import { Main } from './pages/Main/Main';
 const element = document.getElementById('app');
 const root = createRoot(element as HTMLDivElement);
 
+// TODO: Continue trying to figure out how to return a object for cacheExchange to create a new client because that's how Adam does it in the tutorial he just returns an object for the client
+
 const debugExchange: Exchange =
   ({ forward }: any) =>
   (ops$: any) =>
