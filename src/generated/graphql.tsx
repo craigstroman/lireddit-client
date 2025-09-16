@@ -90,7 +90,7 @@ export type MutationDeletePostArgs = {
 };
 
 export type MutationChangePasswordArgs = {
-  newPassword: Scalars['String'];
+  new_password: Scalars['String'];
   token: Scalars['String'];
 };
 
@@ -148,7 +148,7 @@ export type RegularUserResponseFragment = { __typename?: 'UserResponse' } & {
 
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String'];
-  newPassword: Scalars['String'];
+  new_password: Scalars['String'];
 }>;
 
 export type ChangePasswordMutation = { __typename?: 'Mutation' } & {
@@ -286,8 +286,8 @@ export const RegularUserResponseFragmentDoc = gql`
   ${RegularUserFragmentDoc}
 `;
 export const ChangePasswordDocument = gql`
-  mutation ChangePassword($token: String!, $newPassword: String!) {
-    changePassword(token: $token, newPassword: $newPassword) {
+  mutation ChangePassword($token: String!, $new_password: String!) {
+    changePassword(token: $token, new_password: $new_password) {
       ...RegularUserResponse
     }
   }
