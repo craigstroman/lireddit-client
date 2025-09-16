@@ -48,7 +48,7 @@ export const ChangePassword: React.FC = () => {
     setFieldTypeTwo(data);
   };
 
-  const [, changePassword] = useChangePasswordMutation();
+  const [changePassword] = useChangePasswordMutation();
 
   return (
     <div className="change-password-container">
@@ -59,8 +59,10 @@ export const ChangePassword: React.FC = () => {
           let response = undefined;
           if (token) {
             response = await changePassword({
-              new_password: values.new_password,
-              token,
+              variables: {
+                new_password: values.new_password,
+                token,
+              },
             });
           }
 
