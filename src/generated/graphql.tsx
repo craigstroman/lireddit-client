@@ -126,6 +126,8 @@ export type FieldError = {
 
 export type UsernamePasswordInput = {
   email: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
   username: Scalars['String'];
   password: Scalars['String'];
 };
