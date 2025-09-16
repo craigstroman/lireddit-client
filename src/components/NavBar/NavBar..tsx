@@ -5,16 +5,16 @@ import './NavBar.scss';
 
 export const NavBar: React.FC = () => {
   const [, logout] = useLogoutMutation();
-  const [{ data }] = useMeQuery();
+  const { data, error, loading, fetchMore, variables } = useMeQuery();
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
+    // logout();
     navigate('/');
   };
 
-  if (data?.me.username) {
+  if (data && data.me && data?.me.username) {
     return (
       <header>
         <div className="header-content">
