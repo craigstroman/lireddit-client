@@ -5,25 +5,36 @@ import { Layout } from '../../components/Layout/Layout';
 import './Dashboard.scss';
 
 export const Dashboard: React.FC = () => {
-  const [variables, setVariables] = useState({
-    limit: 10,
-    cursor: null as null | string,
-  });
-  const [{ data: posts, fetching: loading }] = usePostsQuery({
+  const {
+    data: posts,
+    error,
+    loading,
+    fetchMore,
     variables,
+  } = usePostsQuery({
+    variables: {
+      limit: 15,
+      cursor: null,
+    },
   });
-  const [{ data, fetching }] = useMeQuery();
+  const {
+    data,
+    error: meError,
+    loading: meLoading,
+    fetchMore: meFetchMore,
+    variables: meVariables,
+  } = useMeQuery();
   const navigate = useNavigate();
 
   // TODO: Get logout function working
 
   useEffect(() => {
-    if (!fetching) {
-      if (!data?.me.username) {
+    if (!meLoading) {
+      if (data && data.me && !data?.me.username) {
         navigate('/');
       }
     }
-  }, [data, fetching]);
+  }, [data, meLoading]);
 
   if (loading) {
     return (
@@ -61,9 +72,11 @@ export const Dashboard: React.FC = () => {
               type="button"
               className="load-more-button"
               onClick={() => {
-                setVariables({
-                  limit: variables.limit,
-                  cursor: posts?.posts.posts[posts?.posts.posts.length - 1].createdAt || '',
+                fetchMore({
+                  variables: {
+                    limit: variables?.limit,
+                    cursor: posts.posts.posts[posts.posts.posts.length - 1].createdAt,
+                  },
                 });
               }}
             >
