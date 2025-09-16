@@ -4,13 +4,13 @@ import React from 'react';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { ICreatePost } from '../../shared/Interfaces';
-import { FieldError, useCreatePostMutation } from '../../generated/graphql';
+import { useCreatePostMutation } from '../../generated/graphql';
 import { Layout } from '../../components/Layout/Layout';
 import './CreatePost.scss';
 
 export const CreatePost: React.FC = () => {
   const navigate = useNavigate();
-  const [, createPost] = useCreatePostMutation();
+  const [createPost] = useCreatePostMutation();
   const initialValues: ICreatePost = {
     title: '',
     text: '',
@@ -26,7 +26,14 @@ export const CreatePost: React.FC = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={async (values, { setErrors }) => {
-            const response = await createPost({ input: values });
+            const response = await createPost({
+              variables: {
+                input: values,
+              },
+              update: (cache) => {
+                cache.evict({ fieldName: 'posts:{}' });
+              },
+            });
 
             if (response.data?.createPost) {
               navigate('/dashboard');
