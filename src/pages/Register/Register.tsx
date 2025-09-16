@@ -5,12 +5,13 @@ import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { IFormValues } from '../../shared/Interfaces';
 import { useRegisterMutation } from '../../generated/graphql';
+import { MeDocument, MeQuery } from '../../generated/graphql';
 import { toErrorMap } from '../../shared/utils/toErrorMap';
 import './Register.scss';
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
-  const [, executeRegisterResult] = useRegisterMutation();
+  const [executeRegisterResult] = useRegisterMutation();
   const initialValues: IFormValues = {
     first_name: '',
     last_name: '',
@@ -44,12 +45,23 @@ export const Register: React.FC = () => {
         initialValues={initialValues}
         onSubmit={async (values, { setErrors }) => {
           const response = await executeRegisterResult({
-            options: {
-              first_name: values.first_name,
-              last_name: values.last_name,
-              email: values.email,
-              username: values.username,
-              password: values.password,
+            variables: {
+              options: {
+                first_name: values.first_name,
+                last_name: values.last_name,
+                email: values.email,
+                username: values.username,
+                password: values.password,
+              },
+            },
+            update: (cache, { data }) => {
+              cache.writeQuery<MeQuery>({
+                query: MeDocument,
+                data: {
+                  __typename: 'Query',
+                  me: data?.register.user,
+                },
+              });
             },
           });
 
