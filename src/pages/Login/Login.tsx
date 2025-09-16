@@ -6,7 +6,7 @@ import { InputField } from '../../components/InputField/InputField';
 import { ILoginValues } from '../../shared/Interfaces';
 import { useLoginMutation } from '../../generated/graphql';
 import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
-import { MeDocument } from '../../generated/graphql';
+import { MeDocument, MeQuery } from '../../generated/graphql';
 import './Login.scss';
 
 export const Login: React.FC = () => {
