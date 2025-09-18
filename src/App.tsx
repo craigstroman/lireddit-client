@@ -68,7 +68,11 @@ const client = new Client({
             }
           },
           createPost: (_result, args, cache, info) => {
-            invalidateAllPosts(cache);
+            const allFields = cache.inspectFields('Query');
+            const fieldInfos = allFields.filter((info) => info.fieldName === 'posts');
+            fieldInfos.forEach((fi) => {
+              cache.invalidate('Query', 'posts', fi.arguments || {});
+            });
           },
           logout: (_result, args, cache, info) => {
             betterUpdateQuery<LogoutMutation, MeQuery>(cache, { query: MeDocument }, _result, () => ({
