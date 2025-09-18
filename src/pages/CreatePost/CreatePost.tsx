@@ -10,7 +10,7 @@ import './CreatePost.scss';
 
 export const CreatePost: React.FC = () => {
   const navigate = useNavigate();
-  const [createPost] = useCreatePostMutation();
+  const [, createPost] = useCreatePostMutation();
   const initialValues: ICreatePost = {
     title: '',
     text: '',
@@ -25,14 +25,9 @@ export const CreatePost: React.FC = () => {
         <h1>Create Post</h1>
         <Formik
           initialValues={initialValues}
-          onSubmit={async (values, { setErrors }) => {
+          onSubmit={async (values) => {
             const response = await createPost({
-              variables: {
-                input: values,
-              },
-              update: (cache) => {
-                cache.evict({ fieldName: 'posts:{}' });
-              },
+              input: values,
             });
 
             if (response.data?.createPost) {
