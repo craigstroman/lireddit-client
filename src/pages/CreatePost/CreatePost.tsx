@@ -26,6 +26,7 @@ export const CreatePost: React.FC = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={async (values) => {
+            console.log('values: ', values);
             const response = await createPost({
               input: values,
             });
@@ -36,7 +37,7 @@ export const CreatePost: React.FC = () => {
           }}
           validationSchema={validationSchema}
         >
-          {({ errors, submitForm }) => {
+          {({ errors, submitForm, isSubmitting, isValid }) => {
             return (
               <Form>
                 <div className="form-row">
@@ -44,12 +45,15 @@ export const CreatePost: React.FC = () => {
                 </div>
 
                 <div className="form-row">
-                  <div className="password-input-container">
-                    <InputField name="text" placeholder="Body..." fieldErrors={errors} textArea={true} />
-                  </div>
+                  <InputField name="text" placeholder="Body..." fieldErrors={errors} textArea={true} />
                 </div>
                 <div className="form-row">
-                  <button type="submit" className="button" onClick={submitForm}>
+                  <button
+                    type="submit"
+                    className="button"
+                    onClick={submitForm}
+                    disabled={!isValid || isSubmitting}
+                  >
                     Create Post
                   </button>
                 </div>
