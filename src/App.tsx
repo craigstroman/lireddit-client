@@ -1,24 +1,26 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Client, Provider, fetchExchange, Exchange } from 'urql';
-// dedupExchange
+import { Client, Provider, fetchExchange, gql } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
-import { pipe, tap } from 'wonka';
+
 import { Main } from './pages/Main/Main';
 import { invalidateAllPosts } from './shared/utils/invalidateAllPosts';
 import { betterUpdateQuery } from './shared/utils/betterUpdateQuery';
-import { MeDocument, MeQuery, LogoutMutation } from './generated/graphql';
+import {
+  MeDocument,
+  MeQuery,
+  LogoutMutation,
+  DeletePostMutationVariables,
+  RegisterMutation,
+  LoginMutation,
+  VoteMutationVariables,
+} from './generated/graphql';
+import { debugExchange } from './shared/utils/debugExchange';
+import { error } from './shared/utils/errorExchange';
+// dedupExchange
 
 const element = document.getElementById('app');
 const root = createRoot(element as HTMLDivElement);
-
-const debugExchange: Exchange =
-  ({ forward }: any) =>
-  (ops$: any) =>
-    pipe(
-      forward(ops$),
-      tap((e) => console.log('[urql]', e)),
-    );
 
 const client = new Client({
   url: 'http://localhost:9000/graphql',
@@ -30,22 +32,88 @@ const client = new Client({
       keys: {},
       updates: {
         Mutation: {
+          deletePost: (_result, args, cache, info) => {
+            cache.invalidate({
+              __typename: 'Post',
+              id: (args as DeletePostMutationVariables).id,
+            });
+          },
+          vote: (_result, args, cache, info) => {
+            const { postId, value } = args as VoteMutationVariables;
+            const data = cache.readFragment(
+              gql`
+                fragment _ on Post {
+                  id
+                  points
+                  voteStatus
+                }
+              `,
+              { id: postId } as any,
+            );
+
+            if (data) {
+              if (data.voteStatus === value) {
+                return;
+              }
+              const newPoints = (data.points as number) + (!data.voteStatus ? 1 : 2) * value;
+              cache.writeFragment(
+                gql`
+                  fragment __ on Post {
+                    points
+                    voteStatus
+                  }
+                `,
+                { id: postId, points: newPoints, voteStatus: value } as any,
+              );
+            }
+          },
           createPost: (_result, args, cache, info) => {
             invalidateAllPosts(cache);
           },
-          // TODO: Figure out why this I can't set me to null
-          // TODO: Figure out how to get logout function working
-          // TODO: This is because now I am using latest version of urql
           logout: (_result, args, cache, info) => {
             betterUpdateQuery<LogoutMutation, MeQuery>(cache, { query: MeDocument }, _result, () => ({
-              me: null,
+              me: undefined,
             }));
+          },
+          login: (_result, args, cache, info) => {
+            betterUpdateQuery<LoginMutation, MeQuery>(
+              cache,
+              { query: MeDocument },
+              _result,
+              (result: any, query: any) => {
+                if (result.login.errors) {
+                  return query;
+                } else {
+                  return {
+                    me: result.login.user,
+                  };
+                }
+              },
+            );
+            invalidateAllPosts(cache);
+          },
+          register: (_result, args, cache, info) => {
+            betterUpdateQuery<RegisterMutation, MeQuery>(
+              cache,
+              { query: MeDocument },
+              _result,
+              (result: any, query: any) => {
+                if (result.register.errors) {
+                  return query;
+                } else {
+                  return {
+                    me: result.register.user,
+                  };
+                }
+              },
+            );
           },
         },
       },
     }),
     debugExchange,
     fetchExchange,
+    error,
   ],
 });
 
