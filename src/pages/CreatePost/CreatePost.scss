@@ -17,10 +17,5 @@
       @extend .btn;
       @extend .btn-primary;
     }
-    .forgot-password-link {
-      &:hover {
-        text-decoration: none;
-      }
-    }
   }
 }
