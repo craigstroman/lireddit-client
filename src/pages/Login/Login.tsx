@@ -6,7 +6,6 @@ import { InputField } from '../../components/InputField/InputField';
 import { ILoginValues } from '../../shared/Interfaces';
 import { useLoginMutation } from '../../generated/graphql';
 import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
-import { MeDocument, MeQuery } from '../../generated/graphql';
 import './Login.scss';
 
 export const Login: React.FC = () => {
@@ -14,7 +13,7 @@ export const Login: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [fieldType, setFieldType] = useState<string>('password');
-  const [executeLoginResult] = useLoginMutation();
+  const [, executeLoginResult] = useLoginMutation();
 
   const initialValues: ILoginValues = {
     usernameOrEmail: '',
@@ -44,20 +43,8 @@ export const Login: React.FC = () => {
         initialValues={initialValues}
         onSubmit={async (values) => {
           const response = await executeLoginResult({
-            variables: {
-              usernameOrEmail: values.usernameOrEmail,
-              password: values.password,
-            },
-            update: (cache, { data }) => {
-              cache.writeQuery<MeQuery>({
-                query: MeDocument,
-                data: {
-                  __typename: 'Query',
-                  me: data?.login.user,
-                },
-              });
-              cache.evict({ fieldName: 'posts:{}' });
-            },
+            usernameOrEmail: values.usernameOrEmail,
+            password: values.password,
           });
 
           if (response.data?.login.errors) {
