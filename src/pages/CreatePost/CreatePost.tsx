@@ -26,7 +26,6 @@ export const CreatePost: React.FC = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={async (values) => {
-            console.log('values: ', values);
             const response = await createPost({
               input: values,
             });
