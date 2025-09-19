@@ -2,7 +2,6 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Client, Provider, fetchExchange, gql } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
-
 import { Main } from './pages/Main/Main';
 import { invalidateAllPosts } from './shared/utils/invalidateAllPosts';
 import { betterUpdateQuery } from './shared/utils/betterUpdateQuery';
