@@ -78,9 +78,9 @@ const client = new Client({
           },
           logout: (_result, args, cache, info) => {
             betterUpdateQuery<LogoutMutation, MeQuery>(cache, { query: MeDocument }, _result, () => ({
-              me: undefined,
+              me: null,
             }));
-            cache.invalidate('Query', 'me');
+            cache.invalidate('Query', 'Me');
           },
           login: (_result, args, cache, info) => {
             betterUpdateQuery<LoginMutation, MeQuery>(
