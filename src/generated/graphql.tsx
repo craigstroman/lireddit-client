@@ -32,7 +32,7 @@ export type Mutation = {
   deletePost: Scalars['Boolean']['output'];
   forgotPassword: Scalars['String']['output'];
   login: UserResponse;
-  logout: Scalars['Boolean']['output'];
+  logout: Scalars['Boolean'];
   register: UserResponse;
   updatePost?: Maybe<Post>;
   vote: Scalars['Boolean']['output'];
@@ -224,7 +224,7 @@ export type LoginMutation = {
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutation = { __typename?: 'Mutation'; logout: boolean };
+export type LogoutMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'logout'>;
 
 export type RegisterMutationVariables = Exact<{
   options: UsernameRegisterInput;
