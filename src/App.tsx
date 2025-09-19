@@ -21,8 +21,6 @@ import { error } from './shared/utils/errorExchange';
 const element = document.getElementById('app');
 const root = createRoot(element as HTMLDivElement);
 
-// TODO: Figure out how to clear cache on logout function
-
 const client = new Client({
   url: 'http://localhost:9000/graphql',
   fetchOptions: {
