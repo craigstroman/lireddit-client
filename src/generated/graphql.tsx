@@ -250,7 +250,7 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
   __typename?: 'Query';
-  me: { __typename?: 'User'; id: number; username: string } | undefined;
+  me: { __typename?: 'User'; id: number; username: string } | null;
 };
 
 export type PostQueryVariables = Exact<{
