@@ -4,13 +4,13 @@ import { useMeQuery, useLogoutMutation } from '../../generated/graphql';
 import './NavBar.scss';
 
 export const NavBar: React.FC = () => {
-  const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
+  const [, logout] = useLogoutMutation();
   const [{ data, fetching }] = useMeQuery();
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // logout();
+    logout({});
     navigate('/');
   };
 
