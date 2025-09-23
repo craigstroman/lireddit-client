@@ -8,7 +8,7 @@ module.exports = {
   mode: 'production',
 
   entry: {
-    app: [path.join(__dirname, 'client/containers/App.tsx')],
+    app: [path.join(__dirname, 'src/App.tsx')],
   },
 
   output: {
