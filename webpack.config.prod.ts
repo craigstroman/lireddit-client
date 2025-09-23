@@ -64,6 +64,13 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.m?js$/,
+        include: /node_modules[\\/](graphql|@urql)/,
+        resolve: {
+          fullySpecified: false, // allow extension-less ESM imports (e.g., 'graphql/language/kinds')
+        },
+      },
     ],
   },
   plugins: [
