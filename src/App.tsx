@@ -20,9 +20,11 @@ import { error } from './shared/utils/errorExchange';
 
 const element = document.getElementById('app');
 const root = createRoot(element as HTMLDivElement);
+const nodeEnv = process.env.NODE_ENV;
 
 const client = new Client({
-  url: 'http://localhost:9000/graphql',
+  url:
+    nodeEnv === 'production' ? 'http://lireddit.craigstroman.com/graphql' : 'http://localhost:9000/graphql',
   fetchOptions: {
     credentials: 'include',
   },
