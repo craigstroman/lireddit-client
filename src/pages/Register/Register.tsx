@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -6,11 +6,13 @@ import { InputField } from '../../components/InputField/InputField';
 import { IFormValues } from '../../shared/Interfaces';
 import { useRegisterMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../shared/utils/toErrorMap';
+import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
 import './Register.scss';
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
   const [, register] = useRegisterMutation();
+  const [fieldType, setFieldType] = useState<string>('password');
   const initialValues: IFormValues = {
     first_name: '',
     last_name: '',
@@ -36,6 +38,10 @@ export const Register: React.FC = () => {
       .required('Password confirmation is required.')
       .oneOf([Yup.ref('password')], 'Passwords must match.'),
   });
+
+  const handleToggleData = (data: string) => {
+    setFieldType(data);
+  };
 
   return (
     <div className="register-container">
@@ -87,21 +93,27 @@ export const Register: React.FC = () => {
               </div>
 
               <div className="form-row">
-                <InputField
-                  name="password"
-                  placeholder="Enter a password"
-                  fieldErrors={errors}
-                  type="password"
-                />
+                <div className="password-input-container">
+                  <InputField
+                    name="password"
+                    placeholder="Enter a password"
+                    fieldErrors={errors}
+                    type="password"
+                  />
+                  <TogglePassword errors={errors} onSendValue={handleToggleData} />
+                </div>
               </div>
 
               <div className="form-row">
-                <InputField
-                  name="password_confirmation"
-                  placeholder="Enter password confirmation"
-                  fieldErrors={errors}
-                  type="password"
-                />
+                <div className="password-input-container">
+                  <InputField
+                    name="password_confirmation"
+                    placeholder="Enter password confirmation"
+                    fieldErrors={errors}
+                    type="password"
+                  />
+                  <TogglePassword errors={errors} onSendValue={handleToggleData} />
+                </div>
               </div>
 
               <div className="form-row">
