@@ -12,7 +12,8 @@ import './Register.scss';
 export const Register: React.FC = () => {
   const navigate = useNavigate();
   const [, register] = useRegisterMutation();
-  const [fieldType, setFieldType] = useState<string>('password');
+  const [passwordFieldType, setPasswordFieldType] = useState<string>('password');
+  const [passwordConfirmationFieldType, setPasswordConfirmationFieldType] = useState<string>('password');
   const initialValues: IFormValues = {
     first_name: '',
     last_name: '',
@@ -39,9 +40,25 @@ export const Register: React.FC = () => {
       .oneOf([Yup.ref('password')], 'Passwords must match.'),
   });
 
-  const handleToggleData = (data: string) => {
-    setFieldType(data);
+  const handleToggleData = (fieldName: string) => {
+    if (fieldName === 'password') {
+      if (passwordFieldType === 'password') {
+        console.log('inside here: ');
+        setPasswordFieldType('text');
+      } else {
+        setPasswordFieldType('password');
+      }
+    } else if (fieldName === 'password_confirmation') {
+      if (passwordConfirmationFieldType === 'password') {
+        setPasswordConfirmationFieldType('text');
+      } else {
+        setPasswordConfirmationFieldType('password');
+      }
+    }
   };
+
+  console.log('passwordFieldType: ', passwordFieldType);
+  console.log('passwordConfirmationFieldType: ', passwordConfirmationFieldType);
 
   return (
     <div className="register-container">
@@ -98,9 +115,9 @@ export const Register: React.FC = () => {
                     name="password"
                     placeholder="Enter a password"
                     fieldErrors={errors}
-                    type="password"
+                    type={passwordFieldType}
                   />
-                  <TogglePassword errors={errors} onSendValue={handleToggleData} />
+                  <TogglePassword errors={errors} onSendValue={() => handleToggleData('password')} />
                 </div>
               </div>
 
@@ -110,9 +127,12 @@ export const Register: React.FC = () => {
                     name="password_confirmation"
                     placeholder="Enter password confirmation"
                     fieldErrors={errors}
-                    type="password"
+                    type={passwordConfirmationFieldType}
                   />
-                  <TogglePassword errors={errors} onSendValue={handleToggleData} />
+                  <TogglePassword
+                    errors={errors}
+                    onSendValue={() => handleToggleData('password_confirmation')}
+                  />
                 </div>
               </div>
 
