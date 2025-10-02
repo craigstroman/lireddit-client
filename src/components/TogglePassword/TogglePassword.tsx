@@ -6,7 +6,6 @@ import { ITogglePassword } from '../../shared/Interfaces';
 import './TogglePassword.scss';
 
 export const TogglePassword: React.FC<ITogglePassword> = ({ errors, onSendValue }) => {
-  console.log('errors: ', errors);
   const [inputType, setInputType] = useState<string>('password');
   const [icon, setIcon] = useState<IconDefinition>(faEyeSlash);
   const [iconLabel, setIconLabel] = useState<string>('Hide password');
