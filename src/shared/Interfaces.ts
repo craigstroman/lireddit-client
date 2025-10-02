@@ -33,6 +33,7 @@ export interface ILoginErrors {
   usernameOfEmail?: string;
   password?: string;
   new_password?: string;
+  password_confirmation?: string;
 }
 
 export interface ITogglePassword {
