@@ -43,7 +43,6 @@ export const Register: React.FC = () => {
   const handleToggleData = (fieldName: string) => {
     if (fieldName === 'password') {
       if (passwordFieldType === 'password') {
-        console.log('inside here: ');
         setPasswordFieldType('text');
       } else {
         setPasswordFieldType('password');
