@@ -57,9 +57,6 @@ export const Register: React.FC = () => {
     }
   };
 
-  console.log('passwordFieldType: ', passwordFieldType);
-  console.log('passwordConfirmationFieldType: ', passwordConfirmationFieldType);
-
   return (
     <div className="register-container">
       <h1>Register a new account</h1>
