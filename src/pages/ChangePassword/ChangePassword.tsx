@@ -13,8 +13,8 @@ import './ChangePassword.scss';
 export const ChangePassword: React.FC = () => {
   const navigate = useNavigate();
 
-  const [fieldTypeOne, setFieldTypeOne] = useState<string>('password');
-  const [fieldTypeTwo, setFieldTypeTwo] = useState<string>('password');
+  const [newPasswordFieldType, setNewPasswordFieldType] = useState<string>('password');
+  const [passwordConfirmationFieldType, setPasswordConfirmationFieldType] = useState<string>('password');
   const [tokenError, setTokenError] = useState<string>('');
   const { token } = useParams();
 
@@ -40,12 +40,20 @@ export const ChangePassword: React.FC = () => {
       .oneOf([Yup.ref('new_password')], 'Passwords must match.'),
   });
 
-  const handleToggleFieldOne = (data: string) => {
-    setFieldTypeOne(data);
-  };
-
-  const handleToggleFieldTwo = (data: string) => {
-    setFieldTypeTwo(data);
+  const handleToggleData = (fieldName: string) => {
+    if (fieldName === 'new_password') {
+      if (newPasswordFieldType === 'password') {
+        setNewPasswordFieldType('text');
+      } else {
+        setNewPasswordFieldType('password');
+      }
+    } else if (fieldName === 'password_confirmation') {
+      if (passwordConfirmationFieldType === 'password') {
+        setPasswordConfirmationFieldType('text');
+      } else {
+        setPasswordConfirmationFieldType('password');
+      }
+    }
   };
 
   const [, changePassword] = useChangePasswordMutation();
@@ -85,9 +93,9 @@ export const ChangePassword: React.FC = () => {
                     name="new_password"
                     placeholder="Enter a password"
                     fieldErrors={errors}
-                    type={fieldTypeOne}
+                    type={newPasswordFieldType}
                   />
-                  <TogglePassword errors={errors} onSendValue={handleToggleFieldOne} />
+                  <TogglePassword errors={errors} onSendValue={() => handleToggleData('new_password')} />
                 </div>
               </div>
               <div className="form-row">
@@ -96,9 +104,12 @@ export const ChangePassword: React.FC = () => {
                     name="password_confirmation"
                     placeholder="Enter password confirmation"
                     fieldErrors={errors}
-                    type={fieldTypeTwo}
+                    type={passwordConfirmationFieldType}
                   />
-                  <TogglePassword errors={errors} onSendValue={handleToggleFieldTwo} />
+                  <TogglePassword
+                    errors={errors}
+                    onSendValue={() => handleToggleData('password_confirmation')}
+                  />
                 </div>
               </div>
               <div className="form-row">
