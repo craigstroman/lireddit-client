@@ -6,6 +6,7 @@ import { ITogglePassword } from '../../shared/Interfaces';
 import './TogglePassword.scss';
 
 export const TogglePassword: React.FC<ITogglePassword> = ({ errors, onSendValue }) => {
+  console.log('errors: ', errors);
   const [inputType, setInputType] = useState<string>('password');
   const [icon, setIcon] = useState<IconDefinition>(faEyeSlash);
   const [iconLabel, setIconLabel] = useState<string>('Hide password');
@@ -24,7 +25,13 @@ export const TogglePassword: React.FC<ITogglePassword> = ({ errors, onSendValue 
     }
   };
   return (
-    <div className={errors?.password ? 'toggle-password error' : 'toggle-password'}>
+    <div
+      className={
+        errors?.password || errors?.new_password || errors?.password_confirmation
+          ? 'toggle-password error'
+          : 'toggle-password'
+      }
+    >
       <FontAwesomeIcon icon={icon} className="icon" onClick={togglePasswordView} aria-label={iconLabel} />
     </div>
   );
