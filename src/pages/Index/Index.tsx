@@ -5,7 +5,8 @@ import './Index.scss';
 export const Index: React.FC = () => {
   return (
     <Layout>
-      <h1>Not a registered user? Sign up to create posts</h1>
+      <h1>LiReddit</h1>
+      <h2>Not a registered user? Sign up to create posts</h2>
     </Layout>
   );
 };
