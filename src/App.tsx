@@ -16,6 +16,7 @@ import {
 } from './generated/graphql';
 import { debugExchange } from './shared/utils/debugExchange';
 import { error } from './shared/utils/errorExchange';
+import { cursorPagination } from './shared/utils/cursorPagination';
 // dedupExchange
 
 const element = document.getElementById('app');
@@ -31,6 +32,11 @@ const client = new Client({
   exchanges: [
     cacheExchange({
       keys: {},
+      resolvers: {
+        Query: {
+          posts: cursorPagination(),
+        },
+      },
       updates: {
         Mutation: {
           deletePost: (_result, args, cache, info) => {
