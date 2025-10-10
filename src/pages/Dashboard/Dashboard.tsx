@@ -15,8 +15,6 @@ export const Dashboard: React.FC = () => {
   const [{ data, fetching: meLoading }] = useMeQuery();
   const navigate = useNavigate();
 
-  // TODO: Get logout function working
-
   useEffect(() => {
     if (!meLoading) {
       if (data && data.me && !data?.me.username) {
