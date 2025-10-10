@@ -478,11 +478,18 @@ export const PostsDocument = gql`
     posts(limit: $limit, cursor: $cursor) {
       hasMore
       posts {
-        ...PostSnippet
+        id
+        createdAt
+        updatedAt
+        title
+        textSnippet
+        creator {
+          id
+          username
+        }
       }
     }
   }
-  ${PostSnippetFragmentDoc}
 `;
 
 export function usePostsQuery(options: Omit<Urql.UseQueryArgs<PostsQueryVariables>, 'query'>) {
