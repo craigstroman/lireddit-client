@@ -6,7 +6,6 @@ import { Dashboard } from '../Dashboard/Dashboard';
 import { ChangePassword } from '../ChangePassword/ChangePassword';
 import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
 import { CreatePost } from '../CreatePost/CreatePost';
-import './Main.scss';
 
 export const Main: React.FC = () => {
   return (
