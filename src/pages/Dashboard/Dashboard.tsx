@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMeQuery, usePostsQuery } from '../../generated/graphql';
+import { UpdootSection } from '../../components/UpdootSection/UpdootSection';
 import { Layout } from '../../components/Layout/Layout';
 import './Dashboard.scss';
 
@@ -48,6 +49,7 @@ export const Dashboard: React.FC = () => {
         {posts &&
           posts.posts.posts.map((el: any) => (
             <div className="card" key={el.id}>
+              <UpdootSection />
               <h5 className="card-title">{el.title}</h5>
               Posted by {el.creator.username}
               <p className="card-text">{el.textSnippet}</p>
