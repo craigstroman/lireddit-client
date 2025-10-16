@@ -1,7 +1,4 @@
-@import '../../..//node_modules/bootstrap/scss/functions';
-@import '../../..//node_modules/bootstrap/scss/variables';
-@import '../../../node_modules/bootstrap/scss/mixins';
-@import '../../../node_modules/bootstrap/scss/buttons.scss';
+@import '../../shared/scss/mixins';
 
 .container {
   display: grid;
@@ -24,8 +21,8 @@
       display: grid;
       width: 100%;
       .load-more-button {
-        @extend .btn;
-        @extend .btn-primary;
+        @include button;
+        @include primary-button;
         align-items: center;
         width: 25%;
         margin-bottom: 1.5rem;
