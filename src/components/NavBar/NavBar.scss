@@ -1,7 +1,4 @@
-@import '../../..//node_modules/bootstrap/scss/functions';
-@import '../../..//node_modules/bootstrap/scss/variables';
-@import '../../../node_modules/bootstrap/scss/mixins';
-@import '../../../node_modules/bootstrap/scss/buttons.scss';
+@import '../../shared/scss/mixins';
 
 header {
   display: grid;
@@ -12,6 +9,8 @@ header {
   position: sticky;
   top: 0;
   z-index: 1;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
   .header-content {
     display: grid;
     gap: 20px;
@@ -22,8 +21,8 @@ header {
     grid-template-columns: repeat(2, 1fr);
 
     .logout-button {
-      @extend .btn;
-      @extend .btn-link;
+      @include button;
+      @include primary-button;
       &:hover {
         text-decoration: none;
       }
