@@ -22,7 +22,6 @@
     "app-module-path": "^2.2.0",
     "assert": "^2.1.0",
     "body-parser": "^2.2.0",
-    "bootstrap": "^5.3.7",
     "config": "^4.1.0",
     "formik": "^2.4.6",
     "graphql": "15.3.0",
