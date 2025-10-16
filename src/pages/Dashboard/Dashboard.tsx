@@ -49,11 +49,11 @@ export const Dashboard: React.FC = () => {
         {posts &&
           posts.posts.posts.map((el: any) => (
             <div className="card" key={el.id}>
-              <div className="d-flex flex-row mb-2">
-                <div className="p2">
+              <div className="post-container">
+                <div className="vote-container">
                   <UpdootSection />
                 </div>
-                <div className="p2">
+                <div className="post-content">
                   <h5 className="card-title">{el.title}</h5>
                   Posted by {el.creator.username}
                   <p className="card-text">{el.textSnippet}</p>
