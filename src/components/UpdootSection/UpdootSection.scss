@@ -1,0 +1,5 @@
+@import '../../shared/scss/grid';
+
+.updoot-container {
+  @include grid(2, 1.5rem);
+}
