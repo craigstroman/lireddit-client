@@ -18,7 +18,10 @@
     .card {
       margin-bottom: 1.5rem;
       .post-container {
-        @include grid(2, 1.5rem);
+        @include grid-columns-different-widths(80px 500px);
+        .vote-container {
+          @include grid-columns-same-width(2, 1.5rem, 20px);
+        }
       }
     }
     .button {
