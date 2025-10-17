@@ -22,8 +22,9 @@ header {
 
     .logout-button {
       @include link-button;
+      text-decoration: underline;
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
     .username {
