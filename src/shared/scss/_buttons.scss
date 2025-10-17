@@ -79,3 +79,9 @@
     background-color: #ffcd39;
   }
 }
+
+@mixin link-button {
+  cursor: pointer;
+  background-color: transparent;
+  border-color: transparent;
+}
