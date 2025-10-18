@@ -1,5 +1,6 @@
 @import '../../shared/scss/buttons';
 @import '../../shared/scss/grid';
+@import '../../shared/scss/card';
 
 .container {
   display: grid;
@@ -15,12 +16,15 @@
         }
       }
     }
-    .card {
-      margin-bottom: 1.5rem;
-      .post-container {
-        @include grid-columns-different-widths(80px 500px);
-        .vote-container {
-          @include grid-columns-same-width(2, 1.5rem, 20px);
+    .post-container {
+      @include grid-columns-different-widths(80px 500px);
+      .vote-container {
+        @include grid-columns-same-width(2, 1.5rem, 20px);
+      }
+      .post-content {
+        @include card();
+        .post-title {
+          @include card-title();
         }
       }
     }
@@ -35,6 +39,9 @@
         margin-bottom: 1.5rem;
         margin-left: auto;
         margin-right: auto;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
