@@ -1,0 +1,21 @@
+@mixin card($backgroundColor: #fff, $width: auto) {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.175);
+  border-radius: 0.375rem;
+  background-color: $backgroundColor;
+  width: $width;
+}
+
+@mixin card-title($color: #000, $fontSize: 1.5rem, $fontWeight: bold) {
+  color: $color;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
