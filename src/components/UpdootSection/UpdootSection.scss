@@ -2,5 +2,5 @@
 
 .updoot-container {
   margin-top: 1rem;
-  @include grid-columns-same-width(2, 1rem, 20px);
+  @include grid-columns-same-width(3, 1rem, 20px);
 }
