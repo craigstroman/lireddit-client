@@ -1,5 +1,6 @@
 @import '../../shared/scss/grid';
 
 .updoot-container {
+  margin-top: 1rem;
   @include grid-columns-same-width(2, 1rem, 20px);
 }
