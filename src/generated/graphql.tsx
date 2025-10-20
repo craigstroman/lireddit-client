@@ -32,7 +32,7 @@ export type Mutation = {
   deletePost: Scalars['Boolean']['output'];
   forgotPassword: Scalars['String']['output'];
   login: UserResponse;
-  logout: Scalars['Boolean'];
+  logout: Scalars['Boolean']['output'];
   register: UserResponse;
   updatePost?: Maybe<Post>;
   vote: Scalars['Boolean']['output'];
@@ -224,7 +224,7 @@ export type LoginMutation = {
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'logout'>;
+export type LogoutMutation = { __typename?: 'Mutation'; logout: boolean };
 
 export type RegisterMutationVariables = Exact<{
   options: UsernameRegisterInput;
@@ -478,18 +478,11 @@ export const PostsDocument = gql`
     posts(limit: $limit, cursor: $cursor) {
       hasMore
       posts {
-        id
-        createdAt
-        updatedAt
-        title
-        textSnippet
-        creator {
-          id
-          username
-        }
+        ...PostSnippet
       }
     }
   }
+  ${PostSnippetFragmentDoc}
 `;
 
 export function usePostsQuery(options: Omit<Urql.UseQueryArgs<PostsQueryVariables>, 'query'>) {
