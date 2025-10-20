@@ -50,7 +50,7 @@ export const Dashboard: React.FC = () => {
           posts.posts.posts.map((el: any) => (
             <div className="post-container">
               <div className="vote-container">
-                <UpdootSection />
+                <UpdootSection post={el} />
               </div>
               <div className="post-content">
                 <div className="post-title">{el.title}</div>
