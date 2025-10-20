@@ -25,7 +25,7 @@ const nodeEnv = process.env.NODE_ENV;
 
 const client = new Client({
   url:
-    nodeEnv === 'production' ? 'https://lireddit.craigstroman.com/graphql' : 'http://localhost:9008/graphql',
+    nodeEnv === 'production' ? 'https://lireddit.craigstroman.com/graphql' : 'http://localhost:9000/graphql',
   fetchOptions: {
     credentials: 'include',
   },
