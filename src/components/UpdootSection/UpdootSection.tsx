@@ -1,12 +1,9 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { PostSnippetFragment, useVoteMutation } from '../../generated/graphql';
+import { useVoteMutation } from '../../generated/graphql';
+import { UpdootSectionProps } from '../../shared/Interfaces';
 import './UpdootSection.scss';
-
-interface UpdootSectionProps {
-  post: PostSnippetFragment;
-}
 
 // TODO: Fix error that occurs when I click on upvote
 
@@ -30,21 +27,15 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
   return (
     <div className="updoot-container">
       <div className="arrow-container">
-        <FontAwesomeIcon
-          icon={faAngleUp}
-          className="icon"
-          aria-label="Vote Up"
-          onClick={async () => handleUpVote()}
-        />
+        <button type="button" onClick={async () => handleUpVote()} className="icon-button">
+          <FontAwesomeIcon icon={faAngleUp} className="icon" aria-label="Vote Up" />
+        </button>
       </div>
       <div className="point-container">{post.points}</div>
       <div className="arrow-container">
-        <FontAwesomeIcon
-          icon={faAngleDown}
-          className="icon"
-          aria-label="Vote Down"
-          onClick={async () => handleDownVote()}
-        />
+        <button type="button" onClick={async () => handleDownVote()} className="icon-button">
+          <FontAwesomeIcon icon={faAngleDown} className="icon" aria-label="Vote Down" />
+        </button>
       </div>
     </div>
   );
