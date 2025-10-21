@@ -1,9 +1,11 @@
 @import '../../shared/scss/grid';
+@import '../../shared/scss/buttons';
 
 .updoot-container {
+  margin-top: 1rem;
   @include grid-columns-same-width(1, 1rem, 100px);
   text-align: center;
-  .icon {
-    cursor: pointer;
+  .icon-button {
+    @include icon-button();
   }
 }
