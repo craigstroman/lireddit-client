@@ -1,8 +1,10 @@
 @import '../../shared/scss/grid';
 
 .updoot-container {
-  margin-top: 1rem;
-  @include grid-columns-same-width(3, 1rem, 20px);
+  @include grid-columns-same-width(1, 1rem, 100px);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   .icon {
     cursor: pointer;
   }
