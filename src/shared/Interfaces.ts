@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { PostSnippetFragment } from '../generated/graphql';
 
 export interface IFormValues {
   first_name: string;
@@ -57,4 +58,8 @@ export interface BaseLayoutProps {
 export interface IUser {
   id: number;
   username: string;
+}
+
+export interface UpdootSectionProps {
+  post: PostSnippetFragment;
 }
