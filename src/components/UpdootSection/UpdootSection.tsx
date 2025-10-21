@@ -5,9 +5,8 @@ import { useVoteMutation } from '../../generated/graphql';
 import { UpdootSectionProps } from '../../shared/Interfaces';
 import './UpdootSection.scss';
 
-// TODO: Fix error that occurs when I click on upvote
-
 export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
+  console.log('post: ', post);
   const [, vote] = useVoteMutation();
 
   const handleUpVote = async () => {
