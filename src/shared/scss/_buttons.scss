@@ -85,3 +85,9 @@
   background-color: transparent;
   border-color: transparent;
 }
+
+@mixin icon-button {
+  cursor: pointer;
+  background-color: transparent;
+  border-color: transparent;
+}
