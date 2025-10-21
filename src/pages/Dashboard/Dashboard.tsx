@@ -48,7 +48,7 @@ export const Dashboard: React.FC = () => {
         </div>
         {posts &&
           posts.posts.posts.map((el: any) => (
-            <div className="post-container">
+            <div className="post-container" key={el.id}>
               <div className="vote-container">
                 <UpdootSection post={el} />
               </div>
