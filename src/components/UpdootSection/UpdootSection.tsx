@@ -20,6 +20,13 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
     });
   };
 
+  const handleDownVote = async () => {
+    await vote({
+      postId: post.id,
+      value: -1,
+    });
+  };
+
   return (
     <div className="updoot-container">
       <div className="arrow-container">
@@ -32,7 +39,12 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
       </div>
       <div className="point-container">{post.points}</div>
       <div className="arrow-container">
-        <FontAwesomeIcon icon={faAngleDown} className="icon" aria-label="Vote Down" />
+        <FontAwesomeIcon
+          icon={faAngleDown}
+          className="icon"
+          aria-label="Vote Down"
+          onClick={async () => handleDownVote()}
+        />
       </div>
     </div>
   );
