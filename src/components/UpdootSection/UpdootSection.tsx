@@ -6,7 +6,6 @@ import { UpdootSectionProps } from '../../shared/Interfaces';
 import './UpdootSection.scss';
 
 export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
-  console.log('post: ', post);
   const [, vote] = useVoteMutation();
 
   const handleUpVote = async () => {
