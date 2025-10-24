@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Client, Provider, fetchExchange, gql } from 'urql';
+import { Client, Provider, fetchExchange, ssrExchange } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
+import gql from 'graphql-tag';
 import { Main } from './pages/Main/Main';
 import { invalidateAllPosts } from './shared/utils/invalidateAllPosts';
 import { betterUpdateQuery } from './shared/utils/betterUpdateQuery';
@@ -22,6 +23,7 @@ import { cursorPagination } from './shared/utils/cursorPagination';
 const element = document.getElementById('app');
 const root = createRoot(element as HTMLDivElement);
 const nodeEnv = process.env.NODE_ENV;
+const ssr = ssrExchange({ isClient: false });
 
 const client = new Client({
   url:
@@ -31,7 +33,9 @@ const client = new Client({
   },
   exchanges: [
     cacheExchange({
-      keys: {},
+      keys: {
+        PaginatedPosts: () => null,
+      },
       resolvers: {
         Query: {
           posts: cursorPagination(),
@@ -46,10 +50,12 @@ const client = new Client({
             });
           },
           vote: (_result, args, cache, info) => {
+            console.log('inside vote mutation: ');
             const { postId, value } = args as VoteMutationVariables;
             const data = cache.readFragment(
               gql`
                 fragment _ on Post {
+                  __typename
                   id
                   points
                   voteStatus
@@ -57,6 +63,8 @@ const client = new Client({
               `,
               { id: postId } as any,
             );
+
+            console.log('data: ', data);
 
             if (data) {
               if (data.voteStatus === value) {
@@ -66,6 +74,7 @@ const client = new Client({
               cache.writeFragment(
                 gql`
                   fragment __ on Post {
+                    __typename
                     points
                     voteStatus
                   }
@@ -125,6 +134,7 @@ const client = new Client({
     }),
     debugExchange,
     fetchExchange,
+    ssr,
     error,
   ],
 });
