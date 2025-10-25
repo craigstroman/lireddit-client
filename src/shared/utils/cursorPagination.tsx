@@ -12,12 +12,12 @@ export const cursorPagination = (): Resolver => {
     }
 
     const fieldKey = `${fieldName}(${stringifyVariables(fieldArgs)})`;
-    const isItInTheCache = cache.resolve(cache.resolveFieldByKey(entityKey, fieldKey) as string, 'posts');
+    const isItInTheCache = cache.resolve(entityKey, fieldKey);
     info.partial = !isItInTheCache;
     let hasMore = true;
     const results: string[] = [];
     fieldInfos.forEach((fi: any) => {
-      const key = cache.resolveFieldByKey(entityKey, fi.fieldKey) as string;
+      const key = cache.resolve(entityKey, fi.fieldKey) as string;
       const data = cache.resolve(key, 'posts') as string[];
       const _hasMore = cache.resolve(key, 'hasMore');
       if (!_hasMore) {
