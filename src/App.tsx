@@ -50,7 +50,6 @@ const client = new Client({
             });
           },
           vote: (_result, args, cache, info) => {
-            console.log('inside vote mutation: ');
             const { postId, value } = args as VoteMutationVariables;
             const data = cache.readFragment(
               gql`
@@ -58,25 +57,22 @@ const client = new Client({
                   __typename
                   id
                   points
-                  voteStatus
+                  title
+                  textSnippet
                 }
               `,
               { id: postId } as any,
             );
 
-            console.log('data: ', data);
-
             if (data) {
-              if (data.voteStatus === value) {
-                return;
-              }
-              const newPoints = (data.points as number) + (!data.voteStatus ? 1 : 2) * value;
+              const newPoints = (data.points as number) + 1 * value;
               cache.writeFragment(
                 gql`
                   fragment __ on Post {
                     __typename
                     points
-                    voteStatus
+                    id: postId
+                    points: newPoints
                   }
                 `,
                 { id: postId, points: newPoints, voteStatus: value } as any,
