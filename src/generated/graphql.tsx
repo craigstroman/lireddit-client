@@ -150,7 +150,6 @@ export type PostSnippetFragment = {
   title: string;
   points: number;
   textSnippet: string;
-  voteStatus?: number | null;
   creator: { __typename?: 'User'; id: number; username: string };
 };
 
@@ -244,7 +243,7 @@ export type VoteMutationVariables = Exact<{
   postId: Scalars['Int']['input'];
 }>;
 
-export type VoteMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'vote'>;
+export type VoteMutation = { __typename?: 'Mutation'; vote: boolean };
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -271,7 +270,6 @@ export type PostsQuery = {
       title: string;
       points: number;
       textSnippet: string;
-      voteStatus?: number | null;
       creator: { __typename?: 'User'; id: number; username: string };
     }>;
   };
@@ -285,7 +283,6 @@ export const PostSnippetFragmentDoc = gql`
     title
     points
     textSnippet
-    voteStatus
     creator {
       id
       username
