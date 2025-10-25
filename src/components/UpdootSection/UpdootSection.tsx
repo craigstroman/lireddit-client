@@ -5,8 +5,6 @@ import { useVoteMutation } from '../../generated/graphql';
 import { UpdootSectionProps } from '../../shared/Interfaces';
 import './UpdootSection.scss';
 
-// TODO: Continue figuring out how to get voteStatus to update and update vote count on vote
-
 export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
   const [, vote] = useVoteMutation();
 
