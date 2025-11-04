@@ -9,29 +9,45 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
   const [, vote] = useVoteMutation();
 
   const handleUpVote = async () => {
-    await vote({
-      postId: post.id,
-      value: 1,
-    });
+    if (post.voteStatus === 1) {
+      return;
+    } else {
+      await vote({
+        postId: post.id,
+        value: 1,
+      });
+    }
   };
 
   const handleDownVote = async () => {
-    await vote({
-      postId: post.id,
-      value: -1,
-    });
+    if (post.voteStatus === -1) {
+      return;
+    } else {
+      await vote({
+        postId: post.id,
+        value: -1,
+      });
+    }
   };
 
   return (
     <div className="updoot-container">
       <div className="arrow-container">
-        <button type="button" onClick={async () => handleUpVote()} className="icon-button">
+        <button
+          type="button"
+          onClick={async () => handleUpVote()}
+          className={post.voteStatus === 1 ? 'icon-button green' : 'icon-button'}
+        >
           <FontAwesomeIcon icon={faAngleUp} className="icon" aria-label="Vote Up" />
         </button>
       </div>
       <div className="point-container">{post.points}</div>
       <div className="arrow-container">
-        <button type="button" onClick={async () => handleDownVote()} className="icon-button">
+        <button
+          type="button"
+          onClick={async () => handleDownVote()}
+          className={post.voteStatus === -1 ? 'icon-button red' : 'icon-button'}
+        >
           <FontAwesomeIcon icon={faAngleDown} className="icon" aria-label="Vote Down" />
         </button>
       </div>
