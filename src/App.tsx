@@ -59,12 +59,16 @@ const client = new Client({
                   points
                   title
                   textSnippet
+                  voteStatus
                 }
               `,
               { id: postId } as any,
             );
 
             if (data) {
+              if (data.voteStatus === value) {
+                return;
+              }
               const newPoints = (data.points as number) + 1 * value;
               cache.writeFragment(
                 gql`
@@ -73,6 +77,7 @@ const client = new Client({
                     points
                     id: postId
                     points: newPoints
+                    voteStatus
                   }
                 `,
                 { id: postId, points: newPoints, voteStatus: value } as any,
