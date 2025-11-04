@@ -7,5 +7,11 @@
   text-align: center;
   .icon-button {
     @include icon-button();
+    &.green {
+      @include success-button();
+    }
+    &.red {
+      @include danger-button();
+    }
   }
 }
