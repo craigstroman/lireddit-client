@@ -1,6 +1,6 @@
+import React from 'react';
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
 import { ICreatePost } from '../../shared/Interfaces';
