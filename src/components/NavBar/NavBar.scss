@@ -17,8 +17,21 @@ header {
     /* the following rule has no effect, as this element isn't a grid-item: */
     grid-column: span 2;
 
+    &.create-post {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
     /* to create a two-column grid layout, we use the following: */
     grid-template-columns: repeat(2, 1fr);
+
+    .create-post-link {
+      margin-top: 0.75rem;
+      a {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
 
     .logout-button {
       @include link-button;
