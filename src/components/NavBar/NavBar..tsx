@@ -18,20 +18,27 @@ export const NavBar: React.FC = () => {
   if (data && data.me && data?.me.username) {
     return (
       <header>
-        <div
-          className={
-            location.pathname.indexOf('/post/') === 0 ? `header-content create-post` : `header-content`
-          }
-        >
-          {location.pathname.indexOf('/post/') === 0 && (
-            <div className="create-post-link">
-              <a href="/create-post">Create Post</a>
+        <div className="navigation-content">
+          <div className="heading">
+            <h1>LiReddit</h1>
+          </div>
+          <div className="navbar-content">
+            <div className="username">
+              <b>Username: {data?.me?.username}</b>
             </div>
-          )}
-          <div className="username">{data?.me?.username}</div>
-          <button className="logout-button" type="button" onClick={handleLogout}>
-            Logout
-          </button>
+            <div className={location.pathname.indexOf('/post/') === 0 ? 'navbar-links post' : 'navbar-links'}>
+              <div className="navbar-link-content">
+                {location.pathname.indexOf('/post/') === 0 && (
+                  <div className="create-post-link">
+                    <a href="/create-post">Create Post</a>
+                  </div>
+                )}
+                <button className="logout-button" type="button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </header>
     );
