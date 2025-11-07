@@ -25,6 +25,12 @@
         @include card();
         .post-title {
           @include card-title();
+          .post-link {
+            color: #000;
+            &:hover {
+              text-decoration: none;
+            }
+          }
         }
       }
     }
