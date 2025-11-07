@@ -30,6 +30,14 @@ export const Post: React.FC = () => {
     );
   }
 
+  if (data && !data.post) {
+    return (
+      <Layout>
+        <div>Couldn't find the post.</div>
+      </Layout>
+    );
+  }
+
   if (data && data.post) {
     return (
       <Layout>
