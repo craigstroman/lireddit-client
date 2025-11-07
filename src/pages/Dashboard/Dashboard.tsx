@@ -53,7 +53,11 @@ export const Dashboard: React.FC = () => {
                 <UpdootSection post={el} />
               </div>
               <div className="post-content">
-                <div className="post-title">{el.title}</div>
+                <div className="post-title">
+                  <a className="post-link" href={`/post/${el.id}`}>
+                    {el.title}
+                  </a>
+                </div>
                 Posted by {el.creator.username}
                 <p className="post-text">{el.textSnippet}</p>
               </div>
