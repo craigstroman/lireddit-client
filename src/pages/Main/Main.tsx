@@ -6,6 +6,7 @@ import { Dashboard } from '../Dashboard/Dashboard';
 import { ChangePassword } from '../ChangePassword/ChangePassword';
 import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
 import { CreatePost } from '../CreatePost/CreatePost';
+import { Post } from '../Post/Post';
 
 export const Main: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ export const Main: React.FC = () => {
         </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/create-post" element={<CreatePost />} />
+        <Route path="/post/:id" element={<Post />} />
       </Routes>
     </BrowserRouter>
   );
