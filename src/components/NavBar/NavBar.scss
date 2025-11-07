@@ -3,7 +3,6 @@
 header {
   display: grid;
   width: 100%;
-  justify-content: end;
   background-color: #fe9d04;
   width: 100%;
   position: sticky;
@@ -11,37 +10,47 @@ header {
   z-index: 1;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
-  .header-content {
+  .navigation-content {
     display: grid;
-    gap: 20px;
-    /* the following rule has no effect, as this element isn't a grid-item: */
-    grid-column: span 2;
-
-    &.create-post {
-      grid-template-columns: repeat(3, 1fr);
+    height: 70px;
+    clear: both;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    .heading {
+      h1 {
+        align-items: start;
+        justify-content: start;
+        text-align: left;
+        margin-left: 1rem;
+      }
     }
-
-    /* to create a two-column grid layout, we use the following: */
-    grid-template-columns: repeat(2, 1fr);
-
-    .create-post-link {
-      margin-top: 0.75rem;
-      a {
-        &:hover {
-          text-decoration: none;
+    .navbar-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: baseline;
+      text-align: right;
+      .navbar-links {
+        display: grid;
+        margin-top: 1.9rem;
+        align-items: baseline;
+        justify-content: end;
+        width: 100%;
+        .navbar-link-content {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 1rem;
+          width: 200px;
+          align-items: end;
+          justify-content: end;
+          .logout-button {
+            @include link-button;
+            text-decoration: underline;
+            &:hover {
+              text-decoration: none;
+            }
+          }
         }
       }
-    }
-
-    .logout-button {
-      @include link-button;
-      text-decoration: underline;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-    .username {
-      padding-top: 0.7rem;
     }
   }
 }
