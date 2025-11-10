@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useMeQuery, usePostsQuery } from '../../generated/graphql';
 import { UpdootSection } from '../../components/UpdootSection/UpdootSection';
@@ -60,6 +62,11 @@ export const Dashboard: React.FC = () => {
                 </div>
                 Posted by {el.creator.username}
                 <p className="post-text">{el.textSnippet}</p>
+                <div className="post-delete-button">
+                  <button type="button" className="delete-button">
+                    <FontAwesomeIcon icon={faTrash} className="icon" aria-label="Delete Post" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
