@@ -20,7 +20,9 @@ export const NavBar: React.FC = () => {
       <header>
         <div className="navigation-content">
           <div className="heading">
-            <h1>LiReddit</h1>
+            <h1>
+              <a href="/dashboard">LiReddit</a>
+            </h1>
           </div>
           <div className="navbar-content">
             <div className="username">
