@@ -4,12 +4,37 @@ header {
   display: grid;
   width: 100%;
   background-color: #fe9d04;
+  height: 65px;
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 1;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
+  .header-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: end;
+    justify-content: end;
+    margin-top: 1.9rem;
+    margin-right: 1rem;
+    align-items: baseline;
+    .header-content-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      .link {
+        display: grid;
+        width: 100px;
+        justify-self: end;
+        a {
+          color: #000;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
   .navigation-content {
     display: grid;
     height: 70px;
@@ -17,10 +42,10 @@ header {
     width: 100%;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     .heading {
+      align-items: start;
+      justify-content: start;
+      justify-items: start;
       h1 {
-        align-items: start;
-        justify-content: start;
-        text-align: left;
         margin-left: 1rem;
         a {
           color: #000;
