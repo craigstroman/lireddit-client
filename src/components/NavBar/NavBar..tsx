@@ -49,8 +49,14 @@ export const NavBar: React.FC = () => {
   return (
     <header>
       <div className="header-content">
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
+        <div className="header-content-items">
+          <div className="link">
+            <a href="/login">Login</a>
+          </div>
+          <div className="link">
+            <a href="/register">Register</a>
+          </div>
+        </div>
       </div>
     </header>
   );
