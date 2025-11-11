@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { useMeQuery, usePostsQuery } from '../../generated/graphql';
+import { useMeQuery, usePostsQuery, useDeletePostMutation } from '../../generated/graphql';
 import { UpdootSection } from '../../components/UpdootSection/UpdootSection';
 import { Layout } from '../../components/Layout/Layout';
 import './Dashboard.scss';
@@ -17,6 +17,12 @@ export const Dashboard: React.FC = () => {
   });
   const [{ data, fetching: meLoading }] = useMeQuery();
   const navigate = useNavigate();
+  const [, deletePost] = useDeletePostMutation();
+
+  const handleDelete = (id: number) => {
+    console.log('handle delete: ');
+    deletePost({ id });
+  };
 
   useEffect(() => {
     if (!meLoading) {
@@ -63,7 +69,7 @@ export const Dashboard: React.FC = () => {
                 Posted by {el.creator.username}
                 <p className="post-text">{el.textSnippet}</p>
                 <div className="post-delete-button">
-                  <button type="button" className="delete-button">
+                  <button type="button" className="delete-button" onClick={() => handleDelete(el.id)}>
                     <FontAwesomeIcon icon={faTrash} className="icon" aria-label="Delete Post" />
                   </button>
                 </div>
