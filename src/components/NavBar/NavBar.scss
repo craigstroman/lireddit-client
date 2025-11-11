@@ -28,8 +28,9 @@ header {
         justify-self: end;
         a {
           color: #000;
+          text-decoration: none;
           &:hover {
-            text-decoration: none;
+            text-decoration: underline;
           }
         }
       }
@@ -75,9 +76,9 @@ header {
           justify-content: end;
           .logout-button {
             @include link-button;
-            text-decoration: underline;
+            text-decoration: none;
             &:hover {
-              text-decoration: none;
+              text-decoration: underline;
             }
           }
         }
