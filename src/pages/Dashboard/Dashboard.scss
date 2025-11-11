@@ -11,9 +11,10 @@
       text-align: center;
       margin-bottom: 1.5rem;
       a {
+        text-decoration: none;
         color: #000;
         &:hover {
-          text-decoration: none;
+          text-decoration: underline;
         }
       }
     }
@@ -28,8 +29,9 @@
           @include card-title();
           .post-link {
             color: #000;
+            text-decoration: none;
             &:hover {
-              text-decoration: none;
+              text-decoration: underline;
             }
           }
         }
