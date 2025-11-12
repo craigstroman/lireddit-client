@@ -1,6 +1,7 @@
 @import '../../shared/scss/buttons';
 @import '../../shared/scss/grid';
 @import '../../shared/scss/card';
+@import '../../shared/scss/alert';
 
 .container {
   display: grid;
@@ -37,6 +38,10 @@
         }
         .delete-button {
           @include icon-button();
+        }
+        .delete-error {
+          display: inline-block;
+          @include alert-danger();
         }
       }
     }
