@@ -12,6 +12,8 @@ export const Dashboard: React.FC = () => {
     limit: 15,
     cursor: null as null | string,
   });
+  const [deleteError, setDeleteError] = useState<string>('');
+  const [deleteId, setDeleteId] = useState<number>(0);
   const [{ data: posts, fetching }] = usePostsQuery({
     variables,
   });
@@ -19,9 +21,14 @@ export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [, deletePost] = useDeletePostMutation();
 
-  const handleDelete = (id: number) => {
-    console.log('handle delete: ');
-    deletePost({ id });
+  const handleDelete = async (id: number) => {
+    const result = await deletePost({ id });
+    if (result.error) {
+      if (result.error.message) {
+        setDeleteError('Not authorized');
+        setDeleteId(id);
+      }
+    }
   };
 
   useEffect(() => {
@@ -72,6 +79,7 @@ export const Dashboard: React.FC = () => {
                   <button type="button" className="delete-button" onClick={() => handleDelete(el.id)}>
                     <FontAwesomeIcon icon={faTrash} className="icon" aria-label="Delete Post" />
                   </button>
+                  {deleteError && el.id === deleteId && <div className="delete-error">{deleteError}</div>}
                 </div>
               </div>
             </div>
