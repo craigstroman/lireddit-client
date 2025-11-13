@@ -1,6 +1,11 @@
 import { ReactNode } from 'react';
 import { PostSnippetFragment } from '../generated/graphql';
 
+export interface IPostFormValues {
+  title: string;
+  text: string;
+}
+
 export interface IFormValues {
   first_name: string;
   last_name: string;
@@ -23,6 +28,8 @@ export interface InputFieldProps {
   };
   type?: string;
   textArea?: boolean;
+  value?: string;
+  showLabels?: boolean;
 }
 
 export interface IChangePassword {
