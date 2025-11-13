@@ -74,6 +74,15 @@ header {
           width: 200px;
           align-items: end;
           justify-content: end;
+          .create-post-link {
+            a {
+              color: #000;
+              text-decoration: none;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
           .logout-button {
             @include link-button;
             text-decoration: none;
