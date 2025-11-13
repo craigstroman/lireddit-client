@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Layout } from '../../components/Layout/Layout';
 import { usePostQuery } from '../../generated/graphql';
+import './Post.scss';
 
 export const Post: React.FC = () => {
   const { id } = useParams();
@@ -41,10 +42,12 @@ export const Post: React.FC = () => {
   if (data && data.post) {
     return (
       <Layout>
-        <h1>{data.post.title}</h1>
-        <div>{data.post.text}</div>
-        <div>
-          <a href={`/post/${data.post.id}/update`}>Update Post</a>
+        <div className="post-container">
+          <h1>{data.post.title}</h1>
+          <div>{data.post.text}</div>
+          <div className="update-post-link">
+            <a href={`/post/${data.post.id}/update`}>Update Post</a>
+          </div>
         </div>
       </Layout>
     );
