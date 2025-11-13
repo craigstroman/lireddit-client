@@ -43,6 +43,9 @@ export const Post: React.FC = () => {
       <Layout>
         <h1>{data.post.title}</h1>
         <div>{data.post.text}</div>
+        <div>
+          <a href={`/post/${data.post.id}/update`}>Update Post</a>
+        </div>
       </Layout>
     );
   }
