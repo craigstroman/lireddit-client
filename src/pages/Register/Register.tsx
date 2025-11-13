@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { InputField } from '../../components/InputField/InputField';
-import { IFormValues } from '../../shared/Interfaces';
+import { IRegisterFormValues } from '../../shared/Interfaces';
 import { useRegisterMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../shared/utils/toErrorMap';
 import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
@@ -14,7 +14,7 @@ export const Register: React.FC = () => {
   const [, register] = useRegisterMutation();
   const [passwordFieldType, setPasswordFieldType] = useState<string>('password');
   const [passwordConfirmationFieldType, setPasswordConfirmationFieldType] = useState<string>('password');
-  const initialValues: IFormValues = {
+  const initialValues: IRegisterFormValues = {
     first_name: '',
     last_name: '',
     email: '',
