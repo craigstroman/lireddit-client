@@ -1,0 +1,18 @@
+.post-container {
+  font-family: Arial, Helvetica, sans-serif;
+  h1 {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.5rem;
+  }
+  .update-post-link {
+    margin-top: 1.5rem;
+    a {
+      color: #000;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
