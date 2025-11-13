@@ -6,7 +6,7 @@ export interface IPostFormValues {
   text: string;
 }
 
-export interface IFormValues {
+export interface IRegisterFormValues {
   first_name: string;
   last_name: string;
   email: string;
