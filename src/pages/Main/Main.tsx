@@ -7,6 +7,7 @@ import { ChangePassword } from '../ChangePassword/ChangePassword';
 import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
 import { CreatePost } from '../CreatePost/CreatePost';
 import { Post } from '../Post/Post';
+import { UpdatePost } from '../UpdatePost/UpdatePost';
 
 export const Main: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ export const Main: React.FC = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/post/:id" element={<Post />} />
+        <Route path="/post/:id/update" element={<UpdatePost />} />
       </Routes>
     </BrowserRouter>
   );
