@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { InputFieldProps } from '../../shared/Interfaces';
 import './InputField.scss';
@@ -13,6 +13,16 @@ export const InputField: React.FC<InputFieldProps> = ({
   showLabels,
 }) => {
   const inputFieldName: string = name;
+  const [fieldValue, setFieldValue] = useState<string>('');
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setFieldValue(e.target.value);
+  };
+
+  useEffect(() => {
+    if (value) {
+      setFieldValue(value);
+    }
+  }, [value]);
 
   if (textArea) {
     return (
@@ -24,7 +34,8 @@ export const InputField: React.FC<InputFieldProps> = ({
           id={name}
           className={fieldErrors[inputFieldName] ? 'textarea error' : 'textarea'}
           as="textarea"
-          value={value}
+          value={fieldValue}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChange(e)}
         />
         <div className="error">
           <ErrorMessage name={name} />
@@ -42,7 +53,8 @@ export const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         id={name}
         className={fieldErrors[inputFieldName] ? 'input error' : 'input'}
-        value={value}
+        value={fieldValue}
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChange(e)}
       />
       <div className="error">
         <ErrorMessage name={name} />
