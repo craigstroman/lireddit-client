@@ -87,9 +87,11 @@ export const UpdatePost: React.FC = () => {
           <Formik
             initialValues={initialValues}
             onSubmit={async (values, { setErrors }) => {
-              await updatePost({ id: idParam, ...values });
+              const response = await updatePost({ id: idParam, title: fieldTitle, text: fieldText });
 
-              navigate(`/post/${idParam}`);
+              if (response.data) {
+                navigate(`/post/${idParam}`);
+              }
             }}
             validationSchema={validationSchema}
           >
