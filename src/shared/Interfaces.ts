@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, ChangeEvent } from 'react';
 import { PostSnippetFragment } from '../generated/graphql';
 
 export interface IPostFormValues {
@@ -30,6 +30,7 @@ export interface InputFieldProps {
   textArea?: boolean;
   value?: string;
   showLabels?: boolean;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IChangePassword {
