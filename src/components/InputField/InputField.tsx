@@ -11,18 +11,9 @@ export const InputField: React.FC<InputFieldProps> = ({
   textArea,
   value,
   showLabels,
+  onChange,
 }) => {
   const inputFieldName: string = name;
-  const [fieldValue, setFieldValue] = useState<string>('');
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setFieldValue(e.target.value);
-  };
-
-  useEffect(() => {
-    if (value) {
-      setFieldValue(value);
-    }
-  }, [value]);
 
   if (textArea) {
     return (
@@ -34,8 +25,8 @@ export const InputField: React.FC<InputFieldProps> = ({
           id={name}
           className={fieldErrors[inputFieldName] ? 'textarea error' : 'textarea'}
           as="textarea"
-          value={fieldValue}
-          onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChange(e)}
+          value={value}
+          onChange={onChange}
         />
         <div className="error">
           <ErrorMessage name={name} />
@@ -53,8 +44,8 @@ export const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         id={name}
         className={fieldErrors[inputFieldName] ? 'input error' : 'input'}
-        value={fieldValue}
-        onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChange(e)}
+        value={value}
+        onChange={onChange}
       />
       <div className="error">
         <ErrorMessage name={name} />
