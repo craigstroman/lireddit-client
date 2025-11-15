@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -12,6 +12,9 @@ import './UpdatePost.scss';
 export const UpdatePost: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [fieldTitle, setFieldTitle] = useState<string>('');
+  const [fieldText, setFieldText] = useState<string>('');
+
   let idParam = null;
 
   if (id) {
@@ -26,6 +29,25 @@ export const UpdatePost: React.FC = () => {
   });
 
   const [, updatePost] = useUpdatePostMutation();
+
+  useEffect(() => {
+    if (!fetching) {
+      if (data) {
+        if (data.post) {
+          setFieldTitle(data.post.title);
+          setFieldText(data.post.text);
+        }
+      }
+    }
+  }, [data, fetching]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, fieldName: string) => {
+    if (fieldName === 'title') {
+      setFieldTitle(e.target.value);
+    } else if (fieldName === 'text') {
+      setFieldText(e.target.value);
+    }
+  };
 
   if (fetching) {
     return <Layout>Loading...</Layout>;
@@ -57,6 +79,7 @@ export const UpdatePost: React.FC = () => {
       title: Yup.string().required('Title name is required.'),
       text: Yup.string().required('Text is required.'),
     });
+
     return (
       <Layout>
         <div className="update-post-container">
@@ -74,14 +97,15 @@ export const UpdatePost: React.FC = () => {
               if (data) {
                 if (data.post) {
                   return (
-                    <form>
+                    <Form>
                       <div className="form-row">
                         <InputField
                           name="title"
                           placeholder="Enter a title:"
                           fieldErrors={errors}
-                          value={data.post.title}
+                          value={fieldTitle}
                           showLabels={true}
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e, 'title')}
                         />
                       </div>
                       <div className="form-row">
@@ -90,8 +114,9 @@ export const UpdatePost: React.FC = () => {
                           placeholder="Enter a body:"
                           fieldErrors={errors}
                           textArea={true}
-                          value={data.post.text}
+                          value={fieldText}
                           showLabels={true}
+                          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e, 'text')}
                         />
                       </div>
                       <div className="form-row">
@@ -99,7 +124,7 @@ export const UpdatePost: React.FC = () => {
                           Update Post
                         </button>
                       </div>
-                    </form>
+                    </Form>
                   );
                 }
               }
