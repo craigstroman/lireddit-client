@@ -58,9 +58,18 @@ header {
     }
     .navbar-content {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       align-items: baseline;
       text-align: right;
+      .whois-online {
+        a {
+          color: #000;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
       .navbar-links {
         display: grid;
         margin-top: 1.9rem;
@@ -69,7 +78,7 @@ header {
         width: 100%;
         .navbar-link-content {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           grid-gap: 1rem;
           width: 200px;
           align-items: end;
