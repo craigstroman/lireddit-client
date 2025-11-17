@@ -25,6 +25,9 @@ export const NavBar: React.FC = () => {
             </h1>
           </div>
           <div className="navbar-content">
+            <div className="whois-online">
+              <a href="/online-users">Who Is Online</a>
+            </div>
             <div className="username">
               <b>Username: {data?.me?.username}</b>
             </div>
