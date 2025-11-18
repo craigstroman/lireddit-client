@@ -15,6 +15,26 @@ export const InputField: React.FC<InputFieldProps> = ({
 }) => {
   const inputFieldName: string = name;
 
+  if (textArea && onChange) {
+    return (
+      <div className="input-container">
+        {showLabels && <label htmlFor={name}>{placeholder}</label>}
+        <Field
+          name={name}
+          placeholder={placeholder}
+          id={name}
+          className={fieldErrors[inputFieldName] ? 'textarea error' : 'textarea'}
+          as="textarea"
+          value={value}
+          onChange={onChange}
+        />
+        <div className="error">
+          <ErrorMessage name={name} />
+        </div>
+      </div>
+    );
+  }
+
   if (textArea) {
     return (
       <div className="input-container">
@@ -25,6 +45,25 @@ export const InputField: React.FC<InputFieldProps> = ({
           id={name}
           className={fieldErrors[inputFieldName] ? 'textarea error' : 'textarea'}
           as="textarea"
+          value={value}
+        />
+        <div className="error">
+          <ErrorMessage name={name} />
+        </div>
+      </div>
+    );
+  }
+
+  if (onChange) {
+    return (
+      <div className="input-container">
+        {showLabels && <label htmlFor={name}>{placeholder}</label>}
+        <Field
+          type={type?.length ? type : 'text'}
+          name={name}
+          placeholder={placeholder}
+          id={name}
+          className={fieldErrors[inputFieldName] ? 'input error' : 'input'}
           value={value}
           onChange={onChange}
         />
@@ -45,7 +84,6 @@ export const InputField: React.FC<InputFieldProps> = ({
         id={name}
         className={fieldErrors[inputFieldName] ? 'input error' : 'input'}
         value={value}
-        onChange={onChange}
       />
       <div className="error">
         <ErrorMessage name={name} />
