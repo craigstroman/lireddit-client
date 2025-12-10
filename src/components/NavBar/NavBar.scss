@@ -58,9 +58,12 @@ header {
     }
     .navbar-content {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       align-items: baseline;
       text-align: right;
+      .create-post-link {
+        width: 100px;
+      }
       .whois-online {
         a {
           color: #000;
