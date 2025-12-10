@@ -58,9 +58,6 @@ export const Dashboard: React.FC = () => {
     <Layout>
       <div className="content">
         <h1>Dashboard</h1>
-        <div className="create-post-link">
-          <a href="/create-post">Create a post</a>
-        </div>
         {posts &&
           posts.posts.posts.map((el: any) => (
             <div className="post-container" key={el.id}>
