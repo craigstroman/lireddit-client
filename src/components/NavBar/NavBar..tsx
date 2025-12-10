@@ -33,11 +33,9 @@ export const NavBar: React.FC = () => {
             </div>
             <div className={location.pathname.indexOf('/post/') === 0 ? 'navbar-links post' : 'navbar-links'}>
               <div className="navbar-link-content">
-                {location.pathname.indexOf('/post/') === 0 && (
-                  <div className="create-post-link">
-                    <a href="/create-post">Create Post</a>
-                  </div>
-                )}
+                <div className="create-post-link">
+                  <a href="/create-post">Create Post</a>
+                </div>
                 <button className="logout-button" type="button" onClick={handleLogout}>
                   Logout
                 </button>
