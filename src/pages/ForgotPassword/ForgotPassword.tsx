@@ -14,8 +14,6 @@ export const ForgotPassword: React.FC = () => {
     email: '',
   };
 
-  console.log('data: ', data);
-
   const validationSchema = Yup.object({
     email: Yup.string().email('Enter a valid email.').required('Email is required.'),
   });
