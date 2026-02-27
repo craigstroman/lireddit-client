@@ -1,6 +1,6 @@
 # LI Reddit - A Reddit clone using GraphQL and React
 
-Based on https://www.youtube.com/watch?v=I6ypD7qv3Z8&t=13455s, but using React and Bootstrap for the front end.
+Based on https://www.youtube.com/watch?v=I6ypD7qv3Z8&t=13455s, but using React and grid for the front end.
 
 ## Live Demo
 
