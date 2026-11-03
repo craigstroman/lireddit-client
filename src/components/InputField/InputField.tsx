@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { InputFieldProps } from '../../shared/Interfaces';
 import './InputField.scss';
