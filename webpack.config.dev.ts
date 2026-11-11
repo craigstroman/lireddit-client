@@ -1,7 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import webpack from 'webpack';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const ESLintOptions = {
   overrideConfigFile: path.resolve(__dirname, 'src/.eslintrc.ts'),
